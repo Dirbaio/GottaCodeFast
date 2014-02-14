@@ -1,4 +1,4 @@
-# Compiled Object files
+n# Compiled Object files
 *.slo
 *.lo
 *.o
@@ -13,3 +13,4 @@
 *.a
 
 *~
+*.user*

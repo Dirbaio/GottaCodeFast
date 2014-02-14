@@ -13,7 +13,6 @@ class GottaCodeFast : public Game {
 		void onKeyPressed(sf::Event event);
 		void onMouseButtonPressed(sf::Event event);
 
-		Editor editor;
 };
 
 #endif // GOTTACODEFAST_HPP

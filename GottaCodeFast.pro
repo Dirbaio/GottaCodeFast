@@ -8,10 +8,12 @@ QMAKE_CXXFLAGS += -std=c++0x
 SOURCES += main.cpp \
     tools.cpp \
     Game.cpp \
-    GottaCodeFast.cpp
+    GottaCodeFast.cpp \
+    Interface.cpp
 
 HEADERS += \
     tools.hpp \
     Game.hpp \
-    GottaCodeFast.hpp
+    GottaCodeFast.hpp \
+    Interface.hpp
 
