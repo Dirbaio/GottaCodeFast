@@ -13,4 +13,5 @@ n# Compiled Object files
 *.a
 
 *~
+*.user
 *.user*
