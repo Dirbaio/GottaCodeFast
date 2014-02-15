@@ -14,15 +14,14 @@ void GottaCodeFast::update(float deltaTime) {
 }
 
 void GottaCodeFast::draw() {
+	ui.draw();
 	editor.draw(sf::Vector2f(100,100));
-	//ui.draw();
 }
 
 void GottaCodeFast::onMouseButtonPressed(sf::Event event) {
 }
 
-void GottaCodeFast::compile()
-{
+void GottaCodeFast::compile() {
 	//TODO Cambiar
 	std::string problem = "sum";
 
@@ -41,8 +40,7 @@ void GottaCodeFast::compile()
 void GottaCodeFast::onKeyPressed(int key) {
 	//std::cout<<key<<" "<<char(key)<<std::endl;
 
-	switch(key)
-	{
+	switch(key) {
 		case 27: window.close(); break;
 		case 5: compile(); break;
 		default: editor.process(key); break;
