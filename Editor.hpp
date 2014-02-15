@@ -2,10 +2,14 @@
 #define EDITOR_HPP
 #include "tools.hpp"
 
+#define KEYWORDS_SIZE 52
+
 class GottaCodeFast;
 class Editor {
 	private:
 		class Line {
+				static std::string keywords[KEYWORDS_SIZE];
+
 			public:
 				Line(Editor* editor, std::string content = "");
 				~Line();
@@ -19,6 +23,8 @@ class Editor {
 				std::string getContent() const {return content;}
 				std::string getIndent() const;
 			private:
+				bool startsKeyword(int pos, int keyword);
+
 				Editor* editor;
 				std::string content;
 				sf::Text text;
@@ -47,6 +53,8 @@ class Editor {
 		void newline();
 
 		void process(int key);
+
+		void setProgram(std::string p);
 
 	private:
 		bool isPositionValid(sf::Vector2i pos);
