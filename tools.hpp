@@ -32,4 +32,6 @@
 	} \
 } while (0)
 
+extern const sf::Clock GLOBALCLOCK;
+
 #endif // TOOLS_HPP

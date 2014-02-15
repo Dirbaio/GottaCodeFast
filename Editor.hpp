@@ -4,17 +4,20 @@
 
 class GottaCodeFast;
 class Editor {
+	private:
 		class Line {
 			public:
-				Line(Editor* editor);
+				Line(Editor* editor, std::string content = "");
 				~Line();
 
 				void add(int pos, char c);
 				void del(int pos);
-
+				int xToPos(int x);
+				int posToX(int pos);
 				void draw(sf::Vector2f pos);
 
-				std::string getContent();
+				std::string getContent() const {return content;}
+				std::string getIndent() const;
 			private:
 				Editor* editor;
 				std::string content;
@@ -25,14 +28,34 @@ class Editor {
 		Editor(GottaCodeFast* game);
 		~Editor();
 
+		//main
 		void update(float deltaTime);
-		void draw();
+		void draw(sf::Vector2f pos);
 		void saveToFile(std::string filePath);
 
-		const sf::Font& getFont() {return font;}
-		GottaCodeFast* getGame() {return game;}
+		//gets
+		const sf::Font& getFont() const {return font;}
+		GottaCodeFast* getGame() const {return game;}
+
+		//actions
+		void forward();
+		void backward();
+		void up();
+		void down();
+		void del();
+		void insert(char c);
+		void newline();
+
+		void process(int key);
 
 	private:
+		bool isPositionValid(sf::Vector2i pos);
+
+		int savePos;
+		bool hasSavePos;
+
+		float cursorTime;
+		sf::Vector2i cursorPos;
 		GottaCodeFast* game;
 		sf::Font font;
 		std::vector<Line> lines;
