@@ -93,25 +93,66 @@ bool Editor::Line::startsKeyword(int pos, int keyword) {
 	return true;
 }
 
+int Editor::Line::findEnclosing(int pos, char enc) {
+	if(enc != '"' && enc != '\'') return -1;
+	if(content[pos] == enc) {
+		if(!(pos != 0 && content[pos-1] == '\\')) {
+			bool found = false;
+			int len = 1;
+			for(unsigned int i = pos+1; i < content.size() && !found; ++i) {
+				if(content[i] == enc && content[i-1] != '\\') found = true;
+				++len;
+			}
+			if(found)
+				return len;
+		}
+	}
+	return -1;
+}
+
+
 void Editor::Line::draw(sf::Vector2f pos) {
 	unsigned int index = 0;
 	while(index < content.size()) {
 		for(int k = 0; k < KEYWORDS_SIZE; ++k) {
+			if(content[index] == '/' && index < content.size()-1 && content[index+1] == '/') {
+				for(unsigned int i = index; i < content.size(); ++i) { //COMMENT
+					text.setColor(sf::Color::Magenta);
+					text.setStyle(sf::Text::Italic);
+					text.setPosition(pos+sf::Vector2f(posToX(index)*12, 0));
+					text.setString(content[index]);
+					editor->getGame()->getWindow().draw(text);
+					++index;
+				}
+				continue;
+			}
+
+			int l = findEnclosing(index,content[index]);
+			if(l > 0) {
+				for(unsigned int i = 0; i < l; ++i) { //STRING
+					text.setColor(sf::Color::Red);
+					text.setStyle(sf::Text::Bold);
+					text.setPosition(pos+sf::Vector2f(posToX(index)*12, 0));
+					text.setString(content[index]);
+					editor->getGame()->getWindow().draw(text);
+					++index;
+				}
+				continue;
+			}
 			if(!startsKeyword(index,k)) continue;
-			for(unsigned int i = 0; i < keywords[k].size(); ++i) {
+			for(unsigned int i = 0; i < keywords[k].size(); ++i) { //KEYWORD
 				text.setColor(sf::Color::Cyan);
 				text.setStyle(sf::Text::Bold);
-				text.setPosition(pos+sf::Vector2f(posToX(index)*12,0));
+				text.setPosition(pos+sf::Vector2f(posToX(index)*12, 0));
 				text.setString(content[index]);
-				std::cout << content[index] << std::endl;
 				editor->getGame()->getWindow().draw(text);
 				++index;
 			}
 		}
-		if(index < content.size()) {
+		if(index < content.size()) { //NORMAL LETTER
 			text.setColor(sf::Color::White);
 			text.setStyle(sf::Text::Regular);
-			text.setPosition(pos+sf::Vector2f(posToX(index)*12,0));
+			text.setPosition(pos+sf::Vector2f(posToX(index)*12, 0));
 			text.setString(content[index]);
 			editor->getGame()->getWindow().draw(text);
 			++index;
@@ -165,7 +206,6 @@ void Editor::update(float deltaTime) {
 }
 
 void Editor::draw(sf::Vector2f pos) {
-	std::cout << "DRAW" << std::endl;
 	for(unsigned int i = 0; i < lines.size(); ++i)
 		lines[i].draw(pos+sf::Vector2f(0,FONTSIZE*i));
 	sf::RectangleShape r(sf::Vector2f(2,FONTSIZE));

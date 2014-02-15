@@ -24,6 +24,7 @@ class Editor {
 				std::string getIndent() const;
 			private:
 				bool startsKeyword(int pos, int keyword);
+				int findEnclosing(int pos, char enc);
 
 				Editor* editor;
 				std::string content;
