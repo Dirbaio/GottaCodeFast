@@ -2,9 +2,10 @@
 
 sf::Font Resources::font;
 sf::Font Resources::messageFont;
-sf::Image Resources::happy;
-sf::Image Resources::sad;
-sf::Image Resources::troll;
+sf::Texture Resources::happy;
+sf::Texture Resources::sad;
+sf::Texture Resources::troll;
+sf::Texture Resources::worm;
 
 
 void Resources::load()
@@ -14,4 +15,5 @@ void Resources::load()
 	happy.loadFromFile("data/happy.png");
 	sad.loadFromFile("data/sad.png");
 	troll.loadFromFile("data/troll.png");
+	worm.loadFromFile("data/gusanito.png");
 }

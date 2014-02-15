@@ -10,7 +10,6 @@ class Worm : public Monster
 		float timeFrame;
 	public:
 		Worm();
-		virtual void loadTexture();
 		virtual void update(float deltaTime);
 
 };

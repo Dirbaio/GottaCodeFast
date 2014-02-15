@@ -5,7 +5,6 @@
 class Monster : public sf::Sprite
 {
 	protected:
-		sf::Texture texture;
 		float speed;
 		sf::Vector2f posFinal;
 		bool alive,waiting;

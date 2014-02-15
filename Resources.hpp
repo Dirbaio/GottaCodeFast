@@ -7,9 +7,10 @@ class Resources
 	public:
 		static sf::Font font;
 		static sf::Font messageFont;
-		static sf::Image happy;
-		static sf::Image sad;
-		static sf::Image troll;
+		static sf::Texture happy;
+		static sf::Texture sad;
+		static sf::Texture troll;
+		static sf::Texture worm;
 		static void load();
 };
 

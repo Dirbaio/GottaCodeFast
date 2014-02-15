@@ -1,4 +1,5 @@
 #include "Worm.h"
+#include "Resources.hpp"
 
 Worm::Worm(){
 	speed = 50;
@@ -13,15 +14,10 @@ Worm::Worm(){
 
 	repeticiones  = 2;
 
-	loadTexture();
+	setTexture(Resources::worm);
 
 	this->setPosition(sf::Vector2f(100,100));
 	posFinal = sf::Vector2f(300,100);
-}
-
-void Worm::loadTexture(){
-	texture.loadFromFile("data/gusanito.png");
-	this->setTexture(texture);
 }
 
 void Worm::update(float deltaTime) {
