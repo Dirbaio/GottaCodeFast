@@ -8,6 +8,7 @@ class Monster : public sf::Sprite
 		sf::Texture texture;
 		float speed;
 		sf::Vector2f posFinal;
+		bool alive,waiting;
 	public:
 		Monster();
 		virtual void loadTexture() = 0;

@@ -6,7 +6,7 @@
 class Worm : public Monster
 {
 	private:
-		int estado,nEstados,d;
+		int frame, nFrames, estado, d, repeticiones;
 		float timeFrame;
 	public:
 		Worm();
