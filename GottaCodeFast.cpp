@@ -41,7 +41,7 @@ void GottaCodeFast::compile()
 }
 
 void GottaCodeFast::onKeyPressed(int key) {
-	std::cout<<key<<" "<<char(key)<<std::endl;
+	//std::cout<<key<<" "<<char(key)<<std::endl;
 
 	switch(key)
 	{
