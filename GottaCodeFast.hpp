@@ -2,13 +2,13 @@
 #define GOTTACODEFAST_HPP
 #include "Game.hpp"
 #include "Editor.hpp"
+#include "Interface.hpp"
 
 class GottaCodeFast : public Game {
 	public:
-		GottaCodeFast();
+		GottaCodeFast(int scrwidth, int scrheight, std::string title, int style);
 		~GottaCodeFast();
 
-		void doInit();
 		void update(float deltaTime);
 		void draw();
 
@@ -17,6 +17,7 @@ class GottaCodeFast : public Game {
 
 	private:
 		Editor editor;
+		Interface ui;
 };
 
 #endif // GOTTACODEFAST_HPP

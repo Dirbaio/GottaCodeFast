@@ -4,19 +4,19 @@
 
 class Game {
 	public:
-		Game();
+		Game(int scrwidth, int scrheight, std::string title, int style);
 		virtual ~Game();
 
-		void init(int scrwidth, int scrheight, std::string title, int style);
 		void run();
 		void processInput();
 
-		virtual void doInit() = 0;
 		virtual void update(float deltaTime) = 0;
 		virtual void draw() = 0;
 
 		virtual void onKeyPressed(sf::Event event) = 0;
 		virtual void onMouseButtonPressed(sf::Event event) = 0;
+
+		sf::RenderWindow& getWindow() { return window;}
 
 	protected:
 		sf::RenderWindow window;

@@ -1,16 +1,12 @@
 #include "Game.hpp"
 
-Game::Game() {
-}
-
-Game::~Game() {
-}
-
-void Game::init(int scrwidth, int scrheight, std::string title, int style) {
+Game::Game(int scrwidth, int scrheight, std::string title, int style) {
 	window.create(sf::VideoMode(scrwidth,scrheight,32), title , style);
 	window.setMouseCursorVisible(false);
 	window.setVerticalSyncEnabled(false);
-	doInit();
+}
+
+Game::~Game() {
 }
 
 void Game::processInput() {
