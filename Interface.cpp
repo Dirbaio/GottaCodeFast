@@ -6,7 +6,7 @@ Interface::Interface(GottaCodeFast* game) : game(game) {
 }
 
 void Interface::init() {
-	///BACKGROUND
+	//BACKGROUND
 	fondo.loadFromFile("data/background.jpg");
 	background.setTexture(fondo);
 	sf::Vector2u s = game->getWindow().getSize();
@@ -14,9 +14,10 @@ void Interface::init() {
 	float scaleY = float(s.y)/fondo.getSize().y;
 	background.setScale(scaleX,scaleY);
 	background.setPosition(sf::Vector2f(0,0));
-	///TIMER BAR
+	//TIMER BAR
+	//sf::RectangleShape timerBack(sf::Vector2f());
 	float espacioSobrante = 100;
-	tTotal  = tParcial = game->getTiempoNivel();
+	tTotal  = tParcial = 100.0f;//game->getTiempoNivel();
 	tiempo.setTexture(fondo);
 	scaleX = 0.01*float(s.x)/fondo.getSize().x;
 	scaleY = (float(s.y)-espacioSobrante)/fondo.getSize().y;
@@ -25,15 +26,14 @@ void Interface::init() {
 	tiempo.setOrigin(rect.left + rect.width/2.0f,
 						 rect.top  + rect.height);
 	tiempo.setPosition(sf::Vector2f(game->getWindow().getSize().x - 150, game->getWindow().getSize().y - espacioSobrante/2.f));
-	///PUNTUACION
+	//PUNTUACION
 	fuente.loadFromFile("data/Monospace.ttf");
-	int punt = game->getPuntuacion();
+	int punt = 10;//game->getPuntuacion();
 	puntuacion = sf::Text(std::to_string(punt),fuente);
 	sf::FloatRect textRect = puntuacion.getLocalBounds();
 	puntuacion.setOrigin(textRect.left + textRect.width/2.0f,
 						 textRect.top  + textRect.height/2.0f);
 	puntuacion.setPosition(sf::Vector2f(s.x/2.0f,s.y/14.0f));
-
 }
 
 void Interface::draw() {
@@ -44,6 +44,6 @@ void Interface::draw() {
 
 void Interface::update(float deltaTime) {
 	tParcial -= deltaTime;
-	porcentaje = tTotal-tParcial;
-	puntuacion.setScale(tiempo.getScale().x, porcentaje*(float(s.y)-espacioSobrante)/fondo.getSize().y;);
+	float porcentaje = tParcial/tTotal;
+	puntuacion.setScale(tiempo.getScale().x, porcentaje*(float(game->getWindow().getSize().y)-100)/fondo.getSize().y);
 }
