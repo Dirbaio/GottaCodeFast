@@ -25,10 +25,8 @@ void Editor::Line::draw(sf::Vector2f pos) {
 	editor->getGame()->getWindow().draw(text);
 }
 
-int Editor::Line::xToPos(int x)
-{
-	for(int i = 0; i < content.size(); i++)
-	{
+int Editor::Line::xToPos(int x) {
+	for(unsigned int i = 0; i < content.size(); i++) {
 		if(x <= 0)
 			return i;
 		if(content[i] == '\t')
@@ -40,10 +38,9 @@ int Editor::Line::xToPos(int x)
 	return content.size();
 }
 
-int Editor::Line::posToX(int pos)
-{
+int Editor::Line::posToX(int pos) {
 	int px = 0;
-	for(int i = 0; i < pos && i < content.size(); i++)
+	for(int i = 0; i < pos && i < int(content.size()); i++)
 		if(content[i] == '\t')
 			px += 4;
 		else
@@ -52,10 +49,9 @@ int Editor::Line::posToX(int pos)
 	return px;
 }
 
-std::string Editor::Line::getIndent() const
-{
+std::string Editor::Line::getIndent() const {
 	std::string r;
-	for(int i = 0; i < content.size(); i++)
+	for(unsigned int i = 0; i < content.size(); i++)
 		if(content[i] == '\t' || content[i] == ' ')
 			r += content[i];
 		else
@@ -63,7 +59,7 @@ std::string Editor::Line::getIndent() const
 	return r;
 }
 
-Editor::Editor(GottaCodeFast* game) : cursorPos(0,0), game(game), cursorTime(0), hasSavePos(false) {
+Editor::Editor(GottaCodeFast* game) : hasSavePos(false), cursorTime(0), cursorPos(0,0), game(game) {
 	font.loadFromFile("data/Monospace.ttf");
 	lines.push_back(Line(this,"#include <iostream>"));
 	lines.push_back(Line(this,"#include <vector>"));
@@ -101,8 +97,7 @@ void Editor::saveToFile(std::string filePath) {
 }
 
 void Editor::forward() {
-	if(cursorPos.x == int(lines[cursorPos.y].getContent().size()) && cursorPos.y + 1 < lines.size())
-	{
+	if(cursorPos.x == int(lines[cursorPos.y].getContent().size()) && cursorPos.y + 1 < int(lines.size())) {
 		cursorPos.y++;
 		cursorPos.x = -1;
 	}
@@ -110,8 +105,7 @@ void Editor::forward() {
 }
 
 void Editor::backward() {
-	if(cursorPos.x == 0 && cursorPos.y != 0)
-	{
+	if(cursorPos.x == 0 && cursorPos.y != 0) {
 		cursorPos.y--;
 		cursorPos.x = int(lines[cursorPos.y].getContent().size());
 	}
@@ -178,8 +172,7 @@ void Editor::process(int key) {
 	if(key != 3 && key != 4)
 		hasSavePos = false;
 
-	switch(key)
-	{
+	switch(key) {
 		case 1: forward(); break;
 		case 2: backward(); break;
 		case 3: up(); break;
@@ -188,13 +181,13 @@ void Editor::process(int key) {
 		case 13: newline(); break;
 		case 9: insert('\t'); break;
 		case 127:
-		{
-			sf::Vector2i v = cursorPos;
-			forward();
-			if(cursorPos != v)
-				del();
-			break;
-		}
+			{
+				sf::Vector2i v = cursorPos;
+				forward();
+				if(cursorPos != v)
+					del();
+				break;
+			}
 		default:
 			insert(char(key));
 			break;

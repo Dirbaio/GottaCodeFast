@@ -28,9 +28,7 @@ void GottaCodeFast::compile()
 
 	editor.saveToFile("data/judge/program.cpp");
 	int pid = fork();
-	if(pid == 0)
-	{
-		std::cout<<"WOLOLO"<<std::endl;
+	if(pid == 0) {
 		execlp("/bin/bash", "/bin/bash", "data/judge/judge.sh", problem.c_str(), NULL);
 		std::cout<<"EXECLP FAIL"<<std::endl;
 	}
