@@ -15,3 +15,10 @@ n# Compiled Object files
 *~
 *.user
 *.user*
+
+data/judge/*.out
+data/judge/program.cpp
+data/judge/gen
+data/judge/program
+data/judge/solution
+
