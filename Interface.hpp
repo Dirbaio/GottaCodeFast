@@ -7,8 +7,12 @@ class GottaCodeFast;
 class Interface {
 	private:
 		GottaCodeFast* game;
-		sf::Sprite background;
 		sf::Texture fondo;
+		sf::Sprite background;
+		sf::Sprite tiempo;
+		float tTotal,tParcial;
+		sf::Font fuente;
+		sf::Text puntuacion;
 	public:
 		Interface(GottaCodeFast* game);
 		void init();
