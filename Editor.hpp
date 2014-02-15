@@ -23,6 +23,7 @@ class Editor {
 				std::string getContent() const {return content;}
 				std::string getIndent() const;
 			private:
+				int startsNumber(int pos);
 				bool startsKeyword(int pos, int keyword);
 				int findEnclosing(int pos, char enc);
 

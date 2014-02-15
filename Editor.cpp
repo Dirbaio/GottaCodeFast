@@ -94,6 +94,27 @@ bool Editor::Line::startsKeyword(int pos, int keyword) {
 	return true;
 }
 
+int Editor::Line::startsNumber(int pos) {
+	bool found = false;
+	int len = 0;
+	for(unsigned int i = 0; i < content.size() && !found; ++i) {
+		if(content[pos+i] < '0' || content[pos+i] > '9') found = true;
+		else ++len;
+	}
+	if(len == 0) return -1;
+	//left limit
+	if(pos != 0) {
+		char c = content[pos-1];
+		if((c <= 'Z' && c >= 'A') || (c <= 'z' && c >= 'a') || c == '_' || (c <= '9' && c >= '0')) return -1;
+	}
+	//right limit
+	if(pos+len-1 != int(content.size())-1) {
+		char c = content[pos+len];
+		if((c <= 'Z' && c >= 'A') || (c <= 'z' && c >= 'a') || c == '_' || (c <= '9' && c >= '0')) return -1;
+	}
+	return len;
+}
+
 int Editor::Line::findEnclosing(int pos, char enc) {
 	if(enc != '"' && enc != '\'') return -1;
 	if(content[pos] == enc) {
@@ -116,6 +137,19 @@ void Editor::Line::draw(sf::Vector2f pos) {
 	unsigned int index = 0;
 	while(index < content.size()) {
 		for(int k = 0; k < KEYWORDS_SIZE; ++k) {
+			int l1 = startsNumber(index);
+			if(l1 > 0) {
+				for(int i = 0; i < l1; ++i) { //STRING
+					text.setColor(sf::Color::Green);
+					text.setStyle(sf::Text::Bold);
+					text.setPosition(pos+sf::Vector2f(posToX(index)*12, 0));
+					text.setString(content[index]);
+					editor->getGame()->getWindow().draw(text);
+					++index;
+				}
+				continue;
+			}
+
 			if(content[index] == '/' && index < content.size()-1 && content[index+1] == '/') {
 				for(unsigned int i = index; i < content.size(); ++i) { //COMMENT
 					text.setColor(sf::Color::Magenta);
@@ -128,9 +162,9 @@ void Editor::Line::draw(sf::Vector2f pos) {
 				continue;
 			}
 
-			int l = findEnclosing(index,content[index]);
-			if(l > 0) {
-				for(unsigned int i = 0; i < l; ++i) { //STRING
+			int l2 = findEnclosing(index,content[index]);
+			if(l2 > 0) {
+				for(int i = 0; i < l2; ++i) { //STRING
 					text.setColor(sf::Color::Red);
 					text.setStyle(sf::Text::Bold);
 					text.setPosition(pos+sf::Vector2f(posToX(index)*12, 0));
