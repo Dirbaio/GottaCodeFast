@@ -11,14 +11,39 @@ void GottaCodeFast::update(float deltaTime) {
 }
 
 void GottaCodeFast::draw() {
-	editor.draw();
-	ui.draw();
-}
-
-void GottaCodeFast::onKeyPressed(sf::Event event) {
-	if (event.key.code == sf::Keyboard::Escape) window.close();
+	editor.draw(sf::Vector2f(100,100));
+	//ui.draw();
 }
 
 void GottaCodeFast::onMouseButtonPressed(sf::Event event) {
+}
+
+void GottaCodeFast::onKeyPressed(sf::Event event) {
+	switch(event.key.code) {
+		case sf::Keyboard::Escape:
+			window.close();
+			break;
+		case sf::Keyboard::BackSpace:
+			editor.del();
+			break;
+		case sf::Keyboard::Return:
+			editor.newline();
+			break;
+		case sf::Keyboard::Right:
+			editor.forward();
+			break;
+		case sf::Keyboard::Left:
+			editor.backward();
+			break;
+		case sf::Keyboard::Up:
+			editor.up();
+			break;
+		case sf::Keyboard::Down:
+			editor.down();
+			break;
+		default:
+			break;
+	}
+	editor.process(event);
 }
 

@@ -3,12 +3,11 @@
 Game::Game(int scrwidth, int scrheight, std::string title, int style) {
 	window.create(sf::VideoMode(scrwidth,scrheight,32), title , style);
 	window.setMouseCursorVisible(false);
-	window.setVerticalSyncEnabled(false);
+	window.setVerticalSyncEnabled(true);
 }
 
 Game::~Game() {
 }
-
 void Game::processInput() {
 	sf::Event event;
 	while(window.pollEvent(event)) {
