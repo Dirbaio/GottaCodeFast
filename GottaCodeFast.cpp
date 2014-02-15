@@ -1,15 +1,20 @@
 #include "GottaCodeFast.hpp"
 
-GottaCodeFast::GottaCodeFast() {
+GottaCodeFast::GottaCodeFast() : editor(this) {
 }
 
 GottaCodeFast::~GottaCodeFast() {
 }
 
+void GottaCodeFast::doInit() {
+}
+
 void GottaCodeFast::update(float deltaTime) {
+	editor.update(deltaTime);
 }
 
 void GottaCodeFast::draw() {
+	editor.draw();
 }
 
 void GottaCodeFast::onKeyPressed(sf::Event event) {

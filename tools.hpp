@@ -20,4 +20,16 @@
 #include <queue>
 #include <limits>
 
+#define ASSERT(expression, string) do \
+{ \
+	if(!(expression)) { \
+		std::cout << "ASSERT FAILED, STOPPING " << std::endl;\
+		std::cout << "Reason: " << string << std::endl; \
+		std::cout << "At file " << __FILE__ \
+		<< " inside function " << __PRETTY_FUNCTION__ << " on line " << __LINE__ << std::endl; \
+		assert(expression); \
+		std::exit(-1); \
+	} \
+} while (0)
+
 #endif // TOOLS_HPP

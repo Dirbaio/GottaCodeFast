@@ -9,11 +9,13 @@ SOURCES += main.cpp \
     tools.cpp \
     Game.cpp \
     GottaCodeFast.cpp \
-    Interface.cpp
+    Interface.cpp \
+    Editor.cpp
 
 HEADERS += \
     tools.hpp \
     Game.hpp \
     GottaCodeFast.hpp \
-    Interface.hpp
+    Interface.hpp \
+    Editor.hpp
 

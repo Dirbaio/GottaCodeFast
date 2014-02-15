@@ -11,6 +11,7 @@ class Game {
 		void run();
 		void processInput();
 
+		virtual void doInit() = 0;
 		virtual void update(float deltaTime) = 0;
 		virtual void draw() = 0;
 
