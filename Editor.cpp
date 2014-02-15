@@ -3,6 +3,61 @@
 
 #define FONTSIZE 20
 
+std::string Editor::Line::keywords[KEYWORDS_SIZE] {
+	"return",
+	"int",
+	"float",
+	"char",
+	"short",
+	"double",
+	"using",
+	"namespace",
+	"class",
+	"struct",
+	"template",
+	"typename",
+	"static",
+	"public",
+	"private",
+	"protected",
+	"const",
+	"switch",
+	"break",
+	"case",
+	"#define",
+	"typedef",
+	"#include",
+	"#ifndef",
+	"#ifdef",
+	"#else",
+	"if",
+	"else",
+	"for",
+	"while",
+	"do",
+	"virtual",
+	"unsigned",
+	"mutable",
+	"auto",
+	"sizeof",
+	"bool",
+	"nullptr",
+	"operator",
+	"volatile",
+	"delete",
+	"dynamic_cast",
+	"static_cast",
+	"const_cast",
+	"default",
+	"continue",
+	"this",
+	"long",
+	"false",
+	"true",
+	"enum",
+	"void"
+};
+
 Editor::Line::Line(Editor* editor, std::string content) : editor(editor), content(content), text(content,editor->getGame()->getFont(),FONTSIZE) {
 }
 
@@ -18,11 +73,50 @@ void Editor::Line::del(int pos) {
 	content.erase(pos,1);
 }
 
+bool Editor::Line::startsKeyword(int pos, int keyword) {
+	std::string key = keywords[keyword];
+	bool same = true;
+	for(unsigned int i = 0; i < key.size() && same; ++i)
+		if(content[pos+i] != key[i]) same = false;
+	if(!same) return false;
+	if(pos+key.size()-1 >= content.size()) return false;
+	//left limit
+	if(pos != 0) {
+		char c = content[pos-1];
+		if((c <= 'Z' && c >= 'A') || (c <= 'z' && c >= 'a') || c == '_') return false;
+	}
+	//right limit
+	if(pos+key.size()-1 != content.size()-1) {
+		char c = content[pos+key.size()];
+		if((c <= 'Z' && c >= 'A') || (c <= 'z' && c >= 'a') || c == '_') return false;
+	}
+	return true;
+}
+
 void Editor::Line::draw(sf::Vector2f pos) {
-	text.setColor(sf::Color::White);
-	text.setPosition(pos);
-	text.setString(content);
-	editor->getGame()->getWindow().draw(text);
+	unsigned int index = 0;
+	while(index < content.size()) {
+		for(int k = 0; k < KEYWORDS_SIZE; ++k) {
+			if(!startsKeyword(index,k)) continue;
+			for(unsigned int i = 0; i < keywords[k].size(); ++i) {
+				text.setColor(sf::Color::Cyan);
+				text.setStyle(sf::Text::Bold);
+				text.setPosition(pos+sf::Vector2f(posToX(index)*12,0));
+				text.setString(content[index]);
+				std::cout << content[index] << std::endl;
+				editor->getGame()->getWindow().draw(text);
+				++index;
+			}
+		}
+		if(index < content.size()) {
+			text.setColor(sf::Color::White);
+			text.setStyle(sf::Text::Regular);
+			text.setPosition(pos+sf::Vector2f(posToX(index)*12,0));
+			text.setString(content[index]);
+			editor->getGame()->getWindow().draw(text);
+			++index;
+		}
+	}
 }
 
 int Editor::Line::xToPos(int x) {
@@ -71,6 +165,7 @@ void Editor::update(float deltaTime) {
 }
 
 void Editor::draw(sf::Vector2f pos) {
+	std::cout << "DRAW" << std::endl;
 	for(unsigned int i = 0; i < lines.size(); ++i)
 		lines[i].draw(pos+sf::Vector2f(0,FONTSIZE*i));
 	sf::RectangleShape r(sf::Vector2f(2,FONTSIZE));
