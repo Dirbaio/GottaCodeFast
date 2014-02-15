@@ -12,7 +12,7 @@ class GottaCodeFast : public Game {
 		void update(float deltaTime);
 		void draw();
 
-		void onKeyPressed(sf::Event event);
+        void onKeyPressed(int key);
 		void onMouseButtonPressed(sf::Event event);
 
 	private:

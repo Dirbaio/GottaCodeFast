@@ -44,11 +44,12 @@ class Editor {
 		void insert(char c);
 		void newline();
 
-		void process(sf::Event event);
+		void process(int key);
 
 	private:
 		bool isPositionValid(sf::Vector2i pos);
 
+		float cursorTime;
 		sf::Vector2i cursorPos;
 		GottaCodeFast* game;
 		sf::Font font;

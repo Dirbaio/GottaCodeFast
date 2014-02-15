@@ -13,7 +13,7 @@ class Game {
 		virtual void update(float deltaTime) = 0;
 		virtual void draw() = 0;
 
-		virtual void onKeyPressed(sf::Event event) = 0;
+        virtual void onKeyPressed(int key) = 0;
 		virtual void onMouseButtonPressed(sf::Event event) = 0;
 
 		sf::RenderWindow& getWindow() { return window;}

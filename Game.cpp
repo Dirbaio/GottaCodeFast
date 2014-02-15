@@ -16,10 +16,26 @@ void Game::processInput() {
 				onMouseButtonPressed(event);
 				break;
 			case sf::Event::KeyPressed:
-				onKeyPressed(event);
+				switch(event.key.code) {
+					case sf::Keyboard::Right:
+						onKeyPressed(1);
+						break;
+					case sf::Keyboard::Left:
+						onKeyPressed(2);
+						break;
+					case sf::Keyboard::Up:
+						onKeyPressed(3);
+						break;
+					case sf::Keyboard::Down:
+						onKeyPressed(4);
+						break;
+				}
 				break;
 			case sf::Event::Closed:
 				window.close();
+				break;
+			case sf::Event::TextEntered:
+				onKeyPressed(event.text.unicode);
 				break;
 			default:
 				break;

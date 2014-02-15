@@ -18,7 +18,15 @@ void GottaCodeFast::draw() {
 void GottaCodeFast::onMouseButtonPressed(sf::Event event) {
 }
 
-void GottaCodeFast::onKeyPressed(sf::Event event) {
+void GottaCodeFast::onKeyPressed(int key) {
+	std::cout<<key<<" "<<char(key)<<std::endl;
+
+	if(key == 27)
+		window.close();
+	else
+		editor.process(key);
+
+	/*
 	switch(event.key.code) {
 		case sf::Keyboard::Escape:
 			window.close();
@@ -44,6 +52,6 @@ void GottaCodeFast::onKeyPressed(sf::Event event) {
 		default:
 			break;
 	}
-	editor.process(event);
+	editor.process(event);*/
 }
 
