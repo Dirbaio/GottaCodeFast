@@ -3,6 +3,7 @@
 
 Interface::Interface(GottaCodeFast* game) : game(game) {
 	init();
+
 }
 
 void Interface::init() {
