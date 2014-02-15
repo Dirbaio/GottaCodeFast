@@ -1,5 +1,6 @@
 #include "Editor.hpp"
 #include "GottaCodeFast.hpp"
+#include "Resources.hpp"
 
 #define FONTSIZE 20
 
@@ -58,7 +59,7 @@ std::string Editor::Line::keywords[KEYWORDS_SIZE] {
 	"void"
 };
 
-Editor::Line::Line(Editor* editor, std::string content) : editor(editor), content(content), text(content,editor->getGame()->getFont(),FONTSIZE) {
+Editor::Line::Line(Editor* editor, std::string content) : editor(editor), content(content), text("", Resources::font,FONTSIZE) {
 }
 
 Editor::Line::~Line() {

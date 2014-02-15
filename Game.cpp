@@ -8,6 +8,7 @@ Game::Game(int scrwidth, int scrheight, std::string title, int style) {
 
 Game::~Game() {
 }
+
 void Game::processInput() {
 	sf::Event event;
 	while(window.pollEvent(event)) {
@@ -59,11 +60,4 @@ void Game::run() {
 		draw();
 		window.display();
 	}
-}
-
-const sf::Font& Game::getFont() const {
-	return font;
-}
-const sf::Font& Game::getMessageFont() const {
-	return messageFont;
 }

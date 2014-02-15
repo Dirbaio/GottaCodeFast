@@ -11,7 +11,9 @@ SOURCES += main.cpp \
     GottaCodeFast.cpp \
     Interface.cpp \
     Editor.cpp \
-    Resources.cpp
+    Resources.cpp \
+    Monster.cpp \
+    Worm.cpp
 
 HEADERS += \
     tools.hpp \
@@ -19,5 +21,7 @@ HEADERS += \
     GottaCodeFast.hpp \
     Interface.hpp \
     Editor.hpp \
-    Resources.hpp
+    Resources.hpp \
+    Monster.h \
+    Worm.h
 
