@@ -1,5 +1,6 @@
 #include "Interface.hpp"
 #include "GottaCodeFast.hpp"
+#include "Resources.hpp"
 
 Interface::Interface(GottaCodeFast* game) : game(game) {
 	//BACKGROUND
@@ -18,9 +19,7 @@ Interface::Interface(GottaCodeFast* game) : game(game) {
 	timerFront.setPosition(105,895);
 	timerFront.setFillColor(sf::Color(200,200,200));
 
-	//PUNTUACION
-	int punt = 10;//game->getPuntuacion();
-	problem = sf::Text("", game->getMessageFont(),30);
+	problem = sf::Text("", Resources::messageFont, 30);
 	sf::FloatRect textRect = problem.getLocalBounds();
 	problem.setPosition(sf::Vector2f(250.0f,40.0f));
 	messageTime = -1;
@@ -40,7 +39,7 @@ void Interface::draw() {
 
 	if(messageTime > 0)
 	{
-		sf::Text msg = sf::Text(message, game->getMessageFont(), 100);
+		sf::Text msg = sf::Text(message, Resources::messageFont, 100);
 		msg.setColor(messageColor);
 		sf::FloatRect textRect = msg.getLocalBounds();
 		sf::Vector2u s = game->getWindow().getSize();

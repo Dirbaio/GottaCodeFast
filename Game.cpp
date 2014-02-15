@@ -4,12 +4,11 @@ Game::Game(int scrwidth, int scrheight, std::string title, int style) {
 	window.create(sf::VideoMode(scrwidth,scrheight,32), title , style);
 	window.setMouseCursorVisible(false);
 	window.setVerticalSyncEnabled(true);
-	font.loadFromFile("data/Monospace.ttf");
-	messageFont.loadFromFile("data/Frijole-Regular.ttf");
 }
 
 Game::~Game() {
 }
+
 void Game::processInput() {
 	sf::Event event;
 	while(window.pollEvent(event)) {
@@ -61,11 +60,4 @@ void Game::run() {
 		draw();
 		window.display();
 	}
-}
-
-const sf::Font& Game::getFont() const {
-	return font;
-}
-const sf::Font& Game::getMessageFont() const {
-	return messageFont;
 }

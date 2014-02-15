@@ -26,6 +26,8 @@ GottaCodeFast::GottaCodeFast(int scrwidth, int scrheight, std::string title, int
 	in>>timeLimit;
 	in.close();
 	ui.resetTime(timeLimit);
+
+	timeUp = false;
 }
 
 GottaCodeFast::~GottaCodeFast() {
@@ -62,8 +64,11 @@ void GottaCodeFast::update(float deltaTime) {
 		}
 	}
 
-	if(ui.timeUp())
+	if(ui.timeUp() && !timeUp)
+	{
+		timeUp = true;
 		ui.setMessage("Tiempo!", 2, sf::Color(255, 200, 0));
+	}
 }
 
 void GottaCodeFast::draw() {
@@ -121,10 +126,14 @@ void GottaCodeFast::compile() {
 }
 
 void GottaCodeFast::onKeyPressed(int key) {
-	switch(key) {
-		case 27: window.close(); break;
-		case 5: compile(); break;
-		default: editor.process(key); break;
+	if(key == 27)
+		window.close();
+	else if(!timeUp)
+	{
+		if(key == 5)
+			compile();
+		else
+			editor.process(key);
 	}
 }
 

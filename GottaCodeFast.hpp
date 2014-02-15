@@ -20,6 +20,7 @@ class GottaCodeFast : public Game {
 
 	private:
 		float time;
+		bool timeUp;
 
 		Editor editor;
 		Interface ui;
