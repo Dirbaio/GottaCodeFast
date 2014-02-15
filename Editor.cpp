@@ -139,7 +139,7 @@ void Editor::Line::draw(sf::Vector2f pos) {
 		for(int k = 0; k < KEYWORDS_SIZE; ++k) {
 			int l1 = startsNumber(index);
 			if(l1 > 0) {
-				for(int i = 0; i < l1; ++i) { //STRING
+				for(int i = 0; i < l1; ++i) { //NUMBER
 					text.setColor(sf::Color::Green);
 					text.setStyle(sf::Text::Bold);
 					text.setPosition(pos+sf::Vector2f(posToX(index)*12, 0));
@@ -166,7 +166,7 @@ void Editor::Line::draw(sf::Vector2f pos) {
 			if(l2 > 0) {
 				for(int i = 0; i < l2; ++i) { //STRING
 					text.setColor(sf::Color::Red);
-					text.setStyle(sf::Text::Bold);
+					text.setStyle(sf::Text::Regular);
 					text.setPosition(pos+sf::Vector2f(posToX(index)*12, 0));
 					text.setString(content[index]);
 					editor->getGame()->getWindow().draw(text);
