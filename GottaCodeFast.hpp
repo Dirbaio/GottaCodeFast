@@ -18,6 +18,10 @@ class GottaCodeFast : public Game {
 	private:
 		Editor editor;
 		Interface ui;
+		bool compiling;
+		int pid;
+		int errorfd;
+		std::string output;
 };
 
 #endif // GOTTACODEFAST_HPP
