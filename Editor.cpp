@@ -25,10 +25,49 @@ void Editor::Line::draw(sf::Vector2f pos) {
 	editor->getGame()->getWindow().draw(text);
 }
 
-Editor::Editor(GottaCodeFast* game) : cursorPos(0,0), game(game), cursorTime(0) {
+int Editor::Line::xToPos(int x)
+{
+	for(int i = 0; i < content.size(); i++)
+	{
+		if(x <= 0)
+			return i;
+		if(content[i] == '\t')
+			x -= 4;
+		else
+			x--;
+	}
+
+	return content.size();
+}
+
+int Editor::Line::posToX(int pos)
+{
+	int px = 0;
+	for(int i = 0; i < pos && i < content.size(); i++)
+		if(content[i] == '\t')
+			px += 4;
+		else
+			px++;
+
+	return px;
+}
+
+std::string Editor::Line::getIndent() const
+{
+	std::string r;
+	for(int i = 0; i < content.size(); i++)
+		if(content[i] == '\t' || content[i] == ' ')
+			r += content[i];
+		else
+			break;
+	return r;
+}
+
+Editor::Editor(GottaCodeFast* game) : cursorPos(0,0), game(game), cursorTime(0), hasSavePos(false) {
 	font.loadFromFile("data/Monospace.ttf");
 	lines.push_back(Line(this,"#include <iostream>"));
 	lines.push_back(Line(this,"#include <vector>"));
+	lines.push_back(Line(this,""));
 	lines.push_back(Line(this,"using namespace std;"));
 	lines.push_back(Line(this,""));
 	lines.push_back(Line(this,"int main() {"));
@@ -49,7 +88,8 @@ void Editor::draw(sf::Vector2f pos) {
 		lines[i].draw(pos+sf::Vector2f(0,FONTSIZE*i));
 	sf::RectangleShape r(sf::Vector2f(2,FONTSIZE));
 	r.setFillColor(sf::Color::White);
-	r.setPosition(pos + sf::Vector2f(cursorPos.x*12-1, cursorPos.y * FONTSIZE + 3));
+	std::string str = lines[cursorPos.y].getContent();
+	r.setPosition(pos + sf::Vector2f(lines[cursorPos.y].posToX(cursorPos.x)*12-1, cursorPos.y * FONTSIZE + 3));
 	if(cursorTime - int(cursorTime) < 0.5)
 		game->getWindow().draw(r);
 }
@@ -81,16 +121,20 @@ void Editor::backward() {
 
 void Editor::up() {
 	if(cursorPos.y == 0) return;
+	if(!hasSavePos)
+		savePos = lines[cursorPos.y].posToX(cursorPos.x);
+	hasSavePos = true;
 	--cursorPos.y;
-	if(!isPositionValid(cursorPos))
-		cursorPos.x = lines[cursorPos.y].getContent().size();
+	cursorPos.x = lines[cursorPos.y].xToPos(savePos);
 }
 
 void Editor::down() {
 	if(cursorPos.y == int(lines.size())-1) return;
+	if(!hasSavePos)
+		savePos = lines[cursorPos.y].posToX(cursorPos.x);
+	hasSavePos = true;
 	++cursorPos.y;
-	if(!isPositionValid(cursorPos))
-		cursorPos.x = lines[cursorPos.y].getContent().size();
+	cursorPos.x = lines[cursorPos.y].xToPos(savePos);
 }
 
 void Editor::del() {
@@ -119,9 +163,10 @@ void Editor::newline() {
 	std::vector<Line> newDocument;
 	for(int i = 0; i < cursorPos.y; ++i) newDocument.push_back(lines[i]);
 	newDocument.push_back(Line(this, lines[cursorPos.y].getContent().substr(0,cursorPos.x)));
-	newDocument.push_back(Line(this, lines[cursorPos.y].getContent().substr(cursorPos.x,lines[cursorPos.y].getContent().size())));
+	std::string ind = lines[cursorPos.y].getIndent();
+	newDocument.push_back(Line(this, ind + lines[cursorPos.y].getContent().substr(cursorPos.x,lines[cursorPos.y].getContent().size())));
 	for(unsigned int i = cursorPos.y+1; i < lines.size(); ++i) newDocument.push_back(lines[i]);
-	cursorPos.x = 0;
+	cursorPos.x = ind.size();
 	++cursorPos.y;
 	lines = newDocument;
 }
@@ -129,6 +174,9 @@ void Editor::newline() {
 
 void Editor::process(int key) {
 	cursorTime = 0;
+
+	if(key != 3 && key != 4)
+		hasSavePos = false;
 
 	switch(key)
 	{

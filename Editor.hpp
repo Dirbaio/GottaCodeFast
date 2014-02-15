@@ -12,10 +12,12 @@ class Editor {
 
 				void add(int pos, char c);
 				void del(int pos);
-
+				int xToPos(int x);
+				int posToX(int pos);
 				void draw(sf::Vector2f pos);
 
 				std::string getContent() const {return content;}
+				std::string getIndent() const;
 			private:
 				Editor* editor;
 				std::string content;
@@ -48,6 +50,9 @@ class Editor {
 
 	private:
 		bool isPositionValid(sf::Vector2i pos);
+
+		int savePos;
+		bool hasSavePos;
 
 		float cursorTime;
 		sf::Vector2i cursorPos;
