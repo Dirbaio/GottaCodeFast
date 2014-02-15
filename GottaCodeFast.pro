@@ -10,12 +10,16 @@ SOURCES += main.cpp \
     Game.cpp \
     GottaCodeFast.cpp \
     Interface.cpp \
-    Editor.cpp
+    Editor.cpp \
+    Monster.cpp \
+    Worm.cpp
 
 HEADERS += \
     tools.hpp \
     Game.hpp \
     GottaCodeFast.hpp \
     Interface.hpp \
-    Editor.hpp
+    Editor.hpp \
+    Monster.h \
+    Worm.h
 
