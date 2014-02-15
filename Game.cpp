@@ -29,6 +29,9 @@ void Game::processInput() {
 					case sf::Keyboard::Down:
 						onKeyPressed(4);
 						break;
+					case sf::Keyboard::F5:
+						onKeyPressed(5);
+						break;
 				}
 				break;
 			case sf::Event::Closed:

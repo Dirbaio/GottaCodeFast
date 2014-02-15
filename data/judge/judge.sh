@@ -8,6 +8,7 @@
 # 4 execution error
 # 5 time limit
 
+cd "$(dirname "$0")"
 problem=$1
 
 g++ program.cpp -o program

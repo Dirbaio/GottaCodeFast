@@ -11,8 +11,8 @@ class GottaCodeFast : public Game {
 
 		void update(float deltaTime);
 		void draw();
-
-        void onKeyPressed(int key);
+		void compile();
+		void onKeyPressed(int key);
 		void onMouseButtonPressed(sf::Event event);
 
 	private:
