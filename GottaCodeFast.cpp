@@ -2,7 +2,7 @@
 #include<unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
-
+#include <fcntl.h>
 GottaCodeFast::GottaCodeFast(int scrwidth, int scrheight, std::string title, int style) : Game(scrwidth, scrheight, title, style), editor(this), ui(this), compiling(false) {
 }
 
@@ -27,6 +27,18 @@ void GottaCodeFast::update(float deltaTime) {
 			//El proceso ha acabado
 			std::cout<<"Exited with "<<WEXITSTATUS(status)<<std::endl;
 			compiling = false;
+
+			std::string errors = "";
+
+			char buf[256];
+			while((ret = read(errorfd, buf, sizeof(buf))) > 0)
+			{
+				std::string s(buf, ret);
+				errors += s;
+			}
+
+			std::cout<<"Errors: "<<errors<<std::endl;
+			close(errorfd);
 		}
 	}
 }
@@ -51,6 +63,9 @@ void GottaCodeFast::compile() {
 	//TODO Cambiar
 	std::string problem = "sum";
 
+	int p[2];
+	pipe2(p, 0); //O_NONBLOCK);
+
 	editor.saveToFile("data/judge/program.cpp");
 	pid = fork();
 	if(pid == -1)
@@ -60,10 +75,16 @@ void GottaCodeFast::compile() {
 	}
 
 	if(pid == 0) {
+		close(p[0]);
+		dup2(p[1], 2);
+		close(p[1]);
 		execlp("/bin/bash", "/bin/bash", "data/judge/judge.sh", problem.c_str(), NULL);
 		std::cout<<"EXECLP FAIL"<<std::endl;
 		exit(1);
 	}
+
+	close(p[1]);
+	errorfd = p[0];
 }
 
 void GottaCodeFast::onKeyPressed(int key) {

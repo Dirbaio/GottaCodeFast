@@ -20,6 +20,7 @@ class GottaCodeFast : public Game {
 		Interface ui;
 		bool compiling;
 		int pid;
+		int errorfd;
 		std::string output;
 };
 
