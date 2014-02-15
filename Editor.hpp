@@ -48,6 +48,8 @@ class Editor {
 
 		void process(int key);
 
+		void setProgram(std::string p);
+
 	private:
 		bool isPositionValid(sf::Vector2i pos);
 

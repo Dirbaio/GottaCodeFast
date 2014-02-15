@@ -60,14 +60,6 @@ std::string Editor::Line::getIndent() const {
 }
 
 Editor::Editor(GottaCodeFast* game) : hasSavePos(false), cursorTime(0), cursorPos(0,0), game(game) {
-	lines.push_back(Line(this,"#include <iostream>"));
-	lines.push_back(Line(this,"#include <vector>"));
-	lines.push_back(Line(this,""));
-	lines.push_back(Line(this,"using namespace std;"));
-	lines.push_back(Line(this,""));
-	lines.push_back(Line(this,"int main() {"));
-	lines.push_back(Line(this,"\treturn 42;"));
-	lines.push_back(Line(this,"}"));
 }
 
 Editor::~Editor() {
@@ -164,6 +156,23 @@ void Editor::newline() {
 	lines = newDocument;
 }
 
+void Editor::setProgram(std::string p) {
+	std::stringstream ss(p);
+	std::string item;
+	int y = 0;
+	while (std::getline(ss, item)) {
+		for(int i = 0; i < item.size(); i++)
+			if(item[i] == '$')
+			{
+				item.erase(item.begin()+i);
+				cursorPos.y = y;
+				cursorPos.x = i;
+				break;
+			}
+		y++;
+		lines.push_back(Line(this, item));
+	}
+}
 
 void Editor::process(int key) {
 	cursorTime = 0;

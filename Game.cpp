@@ -5,6 +5,7 @@ Game::Game(int scrwidth, int scrheight, std::string title, int style) {
 	window.setMouseCursorVisible(false);
 	window.setVerticalSyncEnabled(true);
 	font.loadFromFile("data/Monospace.ttf");
+	messageFont.loadFromFile("data/Frijole-Regular.ttf");
 }
 
 Game::~Game() {
@@ -64,4 +65,7 @@ void Game::run() {
 
 const sf::Font& Game::getFont() const {
 	return font;
+}
+const sf::Font& Game::getMessageFont() const {
+	return messageFont;
 }
