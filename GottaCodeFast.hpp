@@ -1,6 +1,7 @@
 #ifndef GOTTACODEFAST_HPP
 #define GOTTACODEFAST_HPP
 #include "Game.hpp"
+#include "Interface.hpp"
 
 class GottaCodeFast : public Game {
 	public:
@@ -12,6 +13,9 @@ class GottaCodeFast : public Game {
 
 		void onKeyPressed(sf::Event event);
 		void onMouseButtonPressed(sf::Event event);
+
+	private:
+		Interface ui;
 
 };
 
