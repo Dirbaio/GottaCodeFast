@@ -2,11 +2,6 @@
 #include "GottaCodeFast.hpp"
 
 Interface::Interface(GottaCodeFast* game) : game(game) {
-	init();
-
-}
-
-void Interface::init() {
 	//BACKGROUND
 	fondo.loadFromFile("data/background.jpg");
 	background.setTexture(fondo);
@@ -16,21 +11,16 @@ void Interface::init() {
 	background.setScale(scaleX,scaleY);
 	background.setPosition(sf::Vector2f(0,0));
 	//TIMER BAR
-	//sf::RectangleShape timerBack(sf::Vector2f());
-	float espacioSobrante = 100;
-	tTotal  = tParcial = 100.0f;//game->getTiempoNivel();
-	tiempo.setTexture(fondo);
-	scaleX = 0.01*float(s.x)/fondo.getSize().x;
-	scaleY = (float(s.y)-espacioSobrante)/fondo.getSize().y;
-	tiempo.setScale(scaleX,scaleY);
-	sf::FloatRect rect = tiempo.getLocalBounds();
-	tiempo.setOrigin(rect.left + rect.width/2.0f,
-						 rect.top  + rect.height);
-	tiempo.setPosition(sf::Vector2f(game->getWindow().getSize().x - 150, game->getWindow().getSize().y - espacioSobrante/2.f));
+	timerBack = sf::RectangleShape(sf::Vector2f(100,800));
+	timerBack.setPosition(100,100);
+	timerBack.setFillColor(sf::Color(50,50,50));
+	timerFront = sf::RectangleShape(sf::Vector2f(90,-790));
+	timerFront.setPosition(105,895);
+	timerFront.setFillColor(sf::Color(200,200,200));
+
 	//PUNTUACION
-	fuente.loadFromFile("data/Monospace.ttf");
 	int punt = 10;//game->getPuntuacion();
-	puntuacion = sf::Text(std::to_string(punt),fuente);
+	puntuacion = sf::Text(std::to_string(punt),game->getFont(),50);
 	sf::FloatRect textRect = puntuacion.getLocalBounds();
 	puntuacion.setOrigin(textRect.left + textRect.width/2.0f,
 						 textRect.top  + textRect.height/2.0f);
@@ -38,13 +28,20 @@ void Interface::init() {
 }
 
 void Interface::draw() {
-	game->getWindow().draw(background);
+	//game->getWindow().draw(background);
 	game->getWindow().draw(puntuacion);
 	game->getWindow().draw(tiempo);
+	game->getWindow().draw(timerBack);
+	game->getWindow().draw(timerFront);
 }
 
 void Interface::update(float deltaTime) {
-	tParcial -= deltaTime;
+	tParcial = std::fmax(tParcial-deltaTime,0);
 	float porcentaje = tParcial/tTotal;
-	puntuacion.setScale(tiempo.getScale().x, porcentaje*(float(game->getWindow().getSize().y)-100)/fondo.getSize().y);
+	timerFront.setSize(sf::Vector2f(timerFront.getSize().x,porcentaje*-790.0f));
+}
+
+void Interface::resetTime(float t) {
+	tTotal = t;
+	tParcial = t;
 }

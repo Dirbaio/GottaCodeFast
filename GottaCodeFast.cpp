@@ -11,11 +11,12 @@ GottaCodeFast::~GottaCodeFast() {
 
 void GottaCodeFast::update(float deltaTime) {
 	editor.update(deltaTime);
+	ui.update(deltaTime);
 }
 
 void GottaCodeFast::draw() {
 	ui.draw();
-	editor.draw(sf::Vector2f(100,100));
+	editor.draw(sf::Vector2f(250,100));
 }
 
 void GottaCodeFast::onMouseButtonPressed(sf::Event event) {
@@ -38,8 +39,7 @@ void GottaCodeFast::compile() {
 }
 
 void GottaCodeFast::onKeyPressed(int key) {
-	//std::cout<<key<<" "<<char(key)<<std::endl;
-
+	if(key == 8) ui.resetTime(5);
 	switch(key) {
 		case 27: window.close(); break;
 		case 5: compile(); break;

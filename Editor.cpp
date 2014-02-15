@@ -3,7 +3,7 @@
 
 #define FONTSIZE 20
 
-Editor::Line::Line(Editor* editor, std::string content) : editor(editor), content(content), text(content,editor->getFont(),FONTSIZE) {
+Editor::Line::Line(Editor* editor, std::string content) : editor(editor), content(content), text(content,editor->getGame()->getFont(),FONTSIZE) {
 }
 
 Editor::Line::~Line() {
@@ -60,7 +60,6 @@ std::string Editor::Line::getIndent() const {
 }
 
 Editor::Editor(GottaCodeFast* game) : hasSavePos(false), cursorTime(0), cursorPos(0,0), game(game) {
-	font.loadFromFile("data/Monospace.ttf");
 	lines.push_back(Line(this,"#include <iostream>"));
 	lines.push_back(Line(this,"#include <vector>"));
 	lines.push_back(Line(this,""));

@@ -18,7 +18,10 @@ class Game {
 
 		sf::RenderWindow& getWindow() { return window;}
 
+		const sf::Font& getFont() const;
+
 	protected:
+		sf::Font font;
 		sf::RenderWindow window;
 };
 
