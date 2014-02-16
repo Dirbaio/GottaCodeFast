@@ -31,8 +31,8 @@ GottaCodeFast::GottaCodeFast(std::string problem, int scrwidth, int scrheight, s
 	time = 0.9;
 	done = false;
 	doneTime = 10;
-	w.setPosition(sf::Vector2f(100,100));
-	w.setPosFinal(sf::Vector2f(1000,100));
+	w.setPosition(sf::Vector2f(200,100));
+	w.setPosFinal(sf::Vector2f(100,100));
 	s.setPosition(sf::Vector2f(500,100));
 	s.setPosFinal(sf::Vector2f(500,200));
 }

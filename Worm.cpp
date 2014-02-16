@@ -20,6 +20,7 @@ Worm::Worm(){
 }
 
 void Worm::update(float deltaTime) {
+	if (getPosition().x > posFinal.x) this->setScale(-1,1);
 
 	if (!(estado == 2 or waiting)) {
 
