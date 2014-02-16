@@ -65,6 +65,17 @@ Editor::Line::Line(Editor* editor, std::string content) : editor(editor), conten
 Editor::Line::~Line() {
 }
 
+sf::Vector2u Editor::getRandomCharPos() {
+	char c = ' ';
+	unsigned int y = 0, x = 0;
+	while(c == ' ' || c == '\t') {
+		unsigned int y = rand()%lines.size();
+		unsigned int x = rand()%lines[y].getContent().size();
+		c = lines[y].getContent()[x];
+	}
+	return sf::Vector2u(x,y);
+}
+
 void Editor::Line::add(int pos, char c) {
 	std::string str = std::string("") + c;
 	content.insert(pos,str);

@@ -58,6 +58,7 @@ class Editor {
 
 		void setProgram(std::string p);
 
+		sf::Vector2u getRandomCharPos();
 	private:
 		bool isPositionValid(sf::Vector2i pos);
 

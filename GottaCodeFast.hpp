@@ -19,8 +19,9 @@ class GottaCodeFast : public Game {
 		void onMouseButtonPressed(sf::Event event);
 
 		std::string problem;
-
 	private:
+		void addRandomWorm();
+
 		float time;
 		bool timeUp;
 
@@ -30,8 +31,8 @@ class GottaCodeFast : public Game {
 		int pid;
 		int errorfd;
 		std::string output;
-		Worm w;
-		Spider s;
+		std::vector<Monster*> monsters;
+		std::vector<sf::Vector2u> monstersObjective;
 };
 
 #endif // GOTTACODEFAST_HPP
