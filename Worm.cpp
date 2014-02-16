@@ -5,6 +5,7 @@ Worm::Worm(){
 	speed = 50;
 	alive = true;
 	waiting = false;
+	comido = false;
 
 	estado = 0; // 0 caminando, 1 comiendo, 2 muriendo
 	frame = 0;
@@ -12,17 +13,15 @@ Worm::Worm(){
 	d = 1;
 	timeFrame = 1.f/26.f;
 
-	repeticiones  = 3;
+	repeticiones  = 2;
 
 	this->setTexture(Resources::worm);
-
-	this->setPosition(sf::Vector2f(100,100));
-	posFinal = sf::Vector2f(300,100);
+	this->setOrigin(sf::Vector2f(40,31));
 }
 
 void Worm::update(float deltaTime) {
 
-	if (estado != 2 and !waiting) {
+	if (!(estado == 2 or waiting)) {
 
 		float distx = posFinal.x-getPosition().x;
 		float disty = posFinal.y-getPosition().y;
@@ -54,12 +53,13 @@ void Worm::update(float deltaTime) {
 			frame = 1;
 			if (estado == 1) --repeticiones;
 			if (estado == 1 and repeticiones == 0) {
+				comido = true;
 				waiting = true;
 			}
 		}
 		this->setTextureRect(sf::IntRect(sf::Vector2i(frame*100,estado*63),sf::Vector2i(100,63)));
 	}
-	else if (waiting) this->setTextureRect(sf::IntRect(sf::Vector2i(200,0),sf::Vector2i(100,63)));
+	else if (waiting and estado != 2) this->setTextureRect(sf::IntRect(sf::Vector2i(200,0),sf::Vector2i(100,63)));
 	else {
 		timeFrame -= deltaTime;
 		if (timeFrame < 0.f) {
@@ -72,7 +72,7 @@ void Worm::update(float deltaTime) {
 }
 
 bool Worm::isClicked(sf::Vector2f pos){
-	if (1) {
+	if (alive and std::abs(pos.x - (getPosition().x)) < 40 and std::abs(pos.y - getPosition().y) < 31) {
 		die();
 		return true;
 	}
@@ -84,4 +84,9 @@ void Worm::die() {
 	d = 1;
 	frame = 0;
 	timeFrame = 2.f/26.f;
+}
+
+void Worm::setPosFinal(sf::Vector2f d) {
+	posFinal = d;
+	comido = false;
 }

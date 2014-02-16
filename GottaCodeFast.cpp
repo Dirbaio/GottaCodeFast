@@ -28,6 +28,11 @@ GottaCodeFast::GottaCodeFast(int scrwidth, int scrheight, std::string title, int
 	ui.resetTime(timeLimit);
 
 	timeUp = false;
+
+	w.setPosition(sf::Vector2f(100,100));
+	w.setPosFinal(sf::Vector2f(1000,100));
+	s.setPosition(sf::Vector2f(500,100));
+	s.setPosFinal(sf::Vector2f(500,500));
 }
 
 GottaCodeFast::~GottaCodeFast() {
@@ -36,6 +41,9 @@ GottaCodeFast::~GottaCodeFast() {
 void GottaCodeFast::update(float deltaTime) {
 	editor.update(deltaTime);
 	ui.update(deltaTime);
+
+	w.update(deltaTime);
+	s.update(deltaTime);
 
 	//Update compiler
 	if(compiling) {
@@ -74,9 +82,13 @@ void GottaCodeFast::update(float deltaTime) {
 void GottaCodeFast::draw() {
 	ui.draw();
 	editor.draw(sf::Vector2f(250, 95));
+	window.draw(w);
+	window.draw(s);
 }
 
 void GottaCodeFast::onMouseButtonPressed(sf::Event event) {
+	w.isClicked(sf::Vector2f(event.mouseButton.x,event.mouseButton.y));
+	s.isClicked(sf::Vector2f(event.mouseButton.x,event.mouseButton.y));
 }
 
 void GottaCodeFast::compilationFinished(int status, std::string errors)

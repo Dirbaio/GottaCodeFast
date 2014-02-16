@@ -12,7 +12,7 @@ class Monster : public sf::Sprite
 		Monster();
 		virtual void update(float deltaTime) = 0;
 		virtual bool isClicked(sf::Vector2f pos) = 0;
-		void setPosFinal(sf::Vector2f d);
+		virtual void setPosFinal(sf::Vector2f d);
 		bool isWaiting();
 		bool isAlive();
 		virtual void die() = 0;

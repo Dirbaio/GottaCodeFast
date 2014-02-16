@@ -3,6 +3,8 @@
 #include "Game.hpp"
 #include "Editor.hpp"
 #include "Interface.hpp"
+#include "Worm.h"
+#include "Spider.h"
 
 class GottaCodeFast : public Game {
 	public:
@@ -28,6 +30,8 @@ class GottaCodeFast : public Game {
 		int pid;
 		int errorfd;
 		std::string output;
+		Worm w;
+		Spider s;
 };
 
 #endif // GOTTACODEFAST_HPP

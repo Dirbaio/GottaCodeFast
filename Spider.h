@@ -6,8 +6,9 @@
 class Spider : public Monster
 {
 	private:
-		int frame, nFrames, estado, d, repeticiones;
+		int frame, nFrames, estado, repeticiones;
 		float timeFrame;
+		bool comido;
 	public:
 		Spider();
 		virtual void update(float deltaTime);
