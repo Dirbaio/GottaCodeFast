@@ -4,7 +4,7 @@
 
 Interface::Interface(GottaCodeFast* game) : game(game) {
 	//BACKGROUND
-	fondo.loadFromFile("data/background.jpg");
+	fondo.loadFromFile("data/background.png");
 	background.setTexture(fondo);
 	sf::Vector2u s = game->getWindow().getSize();
 	float scaleX = float(s.x)/fondo.getSize().x;
@@ -23,6 +23,8 @@ Interface::Interface(GottaCodeFast* game) : game(game) {
 	sf::FloatRect textRect = problem.getLocalBounds();
 	problem.setPosition(sf::Vector2f(250.0f,40.0f));
 	messageTime = -1;
+
+	resetTime(100000000);
 }
 
 void Interface::setStatement(std::string s)
@@ -31,7 +33,7 @@ void Interface::setStatement(std::string s)
 }
 
 void Interface::draw() {
-	//game->getWindow().draw(background);
+	game->getWindow().draw(background);
 	game->getWindow().draw(problem);
 	game->getWindow().draw(tiempo);
 	game->getWindow().draw(timerBack);

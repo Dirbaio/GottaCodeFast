@@ -15,19 +15,20 @@ std::string readAll(std::string file)
 	return res;
 }
 
-GottaCodeFast::GottaCodeFast(int scrwidth, int scrheight, std::string title, int style) : Game(scrwidth, scrheight, title, style), editor(this), ui(this), compiling(false) {
-	problem = "sum";
+GottaCodeFast::GottaCodeFast(std::string problem, int scrwidth, int scrheight, std::string title, int style) : Game(scrwidth, scrheight, title, style), editor(this), ui(this), compiling(false) {
+	this->problem = problem;
 	time = 0;
 
 	ui.setStatement(readAll("data/judge/"+problem+"/problem.txt"));
 	editor.setProgram(readAll("data/judge/"+problem+"/start.cpp"));
 	std::ifstream in("data/judge/"+problem+"/settings.txt");
-	int timeLimit;
 	in>>timeLimit;
 	in.close();
-	ui.resetTime(timeLimit);
 
 	timeUp = false;
+	time = 0.9;
+	done = false;
+	doneTime = 10;
 }
 
 GottaCodeFast::~GottaCodeFast() {
@@ -43,6 +44,21 @@ void GottaCodeFast::addRandomWorm() {
 }
 
 void GottaCodeFast::update(float deltaTime) {
+	int t1 = int(time);
+	time += deltaTime;
+	int t2 = int(time);
+	if(t1 != t2)
+	{
+		if(t1 == 0) ui.setMessage("3", 1, sf::Color(50, 255, 20));
+		if(t1 == 1) ui.setMessage("2", 1, sf::Color(50, 255, 20));
+		if(t1 == 2) ui.setMessage("1", 1, sf::Color(50, 255, 20));
+		if(t1 == 3)
+		{
+			ui.setMessage("Go!", 1, sf::Color(50, 255, 20));
+			ui.resetTime(timeLimit);
+		}
+	}
+
 	editor.update(deltaTime);
 	ui.update(deltaTime);
 
@@ -79,10 +95,18 @@ void GottaCodeFast::update(float deltaTime) {
 		}
 	}
 
-	if(ui.timeUp() && !timeUp)
+	if(ui.timeUp() && !timeUp && !done && time > 4.01)
 	{
 		timeUp = true;
 		ui.setMessage("Tiempo!", 2, sf::Color(255, 200, 0));
+		doneTime = 2;
+	}
+
+	if(doneTime < 9)
+	{
+		doneTime -= deltaTime;
+		if(doneTime < 0)
+			window.close();
 	}
 }
 
@@ -107,6 +131,12 @@ void GottaCodeFast::compilationFinished(int status, std::string errors)
 		case 3:	ui.setMessage("Esta mal!", len, sf::Color(255, 0, 150)); break;
 		case 4:	ui.setMessage("CRASH!", len, sf::Color(255, 0, 0)); break;
 		case 5:	ui.setMessage("El programa no acaba...", len, sf::Color(0, 120, 255)); break;
+	}
+
+	if(status == 0)
+	{
+		done = true;
+		doneTime = 2;
 	}
 }
 
@@ -144,8 +174,12 @@ void GottaCodeFast::compile() {
 
 void GottaCodeFast::onKeyPressed(int key) {
 	if(key == 27)
+	{
 		window.close();
-	else if(!timeUp)
+		exit(0);
+	}
+
+	else if(!timeUp && time > 4 && !done)
 	{
 		if(key == 5)
 			compile();
