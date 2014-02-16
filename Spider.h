@@ -1,18 +1,18 @@
-#ifndef WORM_H
-#define WORM_H
+#ifndef SPIDER_H
+#define SPIDER_H
 #include "Monster.h"
 #include "tools.hpp"
 
-class Worm : public Monster
+class Spider : public Monster
 {
 	private:
 		int frame, nFrames, estado, d, repeticiones;
 		float timeFrame;
 	public:
-		Worm();
+		Spider();
 		virtual void update(float deltaTime);
 		virtual bool isClicked(sf::Vector2f pos);
 		virtual void die();
 };
 
-#endif // WORM_H
+#endif // SPIDER_H

@@ -1,26 +1,25 @@
-#include "Worm.h"
+#include "Spider.h"
 #include "Resources.hpp"
 
-Worm::Worm(){
-	speed = 50;
+Spider::Spider() {
+	speed = 25;
 	alive = true;
 	waiting = false;
 
 	estado = 0; // 0 caminando, 1 comiendo, 2 muriendo
 	frame = 0;
-	nFrames = 13;
-	d = 1;
-	timeFrame = 1.f/26.f;
+	nFrames = 11;
+	timeFrame = 3.f/11.f;
 
 	repeticiones  = 3;
 
-	this->setTexture(Resources::worm);
+	this->setTexture(Resources::spider);
 
-	this->setPosition(sf::Vector2f(100,100));
-	posFinal = sf::Vector2f(300,100);
+	this->setPosition(sf::Vector2f(500,100));
+	posFinal = sf::Vector2f(500,800);
 }
 
-void Worm::update(float deltaTime) {
+void Spider::update(float deltaTime) {
 
 	if (estado != 2 and !waiting) {
 
@@ -33,7 +32,6 @@ void Worm::update(float deltaTime) {
 		}
 		else if (estado != 2) {
 			float s = deltaTime * speed;
-
 			float sqrt = std::sqrt(distx*distx + disty*disty);
 			sf::Vector2f director = sf::Vector2f(distx/sqrt,disty/sqrt);
 			this->setPosition(this->getPosition()+director*s);
@@ -41,29 +39,20 @@ void Worm::update(float deltaTime) {
 
 		timeFrame -= deltaTime;
 		if (timeFrame < 0.f) {
-			frame += d;
-			if (estado == 0) timeFrame += 1.f/26.f;
-			else if (estado == 1) timeFrame += 0.5f/26.f;
+			frame += 1;
+			if (estado == 0) timeFrame += 2.f/11.f;
+			else if (estado == 1) timeFrame += 3.f/11.f;
 		}
 		if (frame >= nFrames) {
-			d = -1;
-			frame = nFrames-2;
+			frame = 0;
 		}
-		else if (frame < 0) {
-			d = 1;
-			frame = 1;
-			if (estado == 1) --repeticiones;
-			if (estado == 1 and repeticiones == 0) {
-				waiting = true;
-			}
-		}
-		this->setTextureRect(sf::IntRect(sf::Vector2i(frame*100,estado*63),sf::Vector2i(100,63)));
+		this->setTextureRect(sf::IntRect(sf::Vector2i(frame*200,estado*150),sf::Vector2i(200,150)));
 	}
 	else if (waiting) this->setTextureRect(sf::IntRect(sf::Vector2i(200,0),sf::Vector2i(100,63)));
 	else {
 		timeFrame -= deltaTime;
 		if (timeFrame < 0.f) {
-			frame += d;
+			frame += 1;
 			timeFrame += 2.f/26.f;
 		}
 		if (frame >= nFrames) alive = false;
@@ -71,7 +60,7 @@ void Worm::update(float deltaTime) {
 	}
 }
 
-bool Worm::isClicked(sf::Vector2f pos){
+bool Spider::isClicked(sf::Vector2f pos){
 	if (1) {
 		die();
 		return true;
@@ -79,9 +68,10 @@ bool Worm::isClicked(sf::Vector2f pos){
 	return false;
 }
 
-void Worm::die() {
+void Spider::die() {
 	estado = 2;
 	d = 1;
 	frame = 0;
 	timeFrame = 2.f/26.f;
 }
+

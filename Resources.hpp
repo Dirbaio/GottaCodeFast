@@ -11,6 +11,7 @@ class Resources
 		static sf::Texture sad;
 		static sf::Texture troll;
 		static sf::Texture worm;
+		static sf::Texture spider;
 		static void load();
 };
 

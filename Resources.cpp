@@ -6,6 +6,7 @@ sf::Texture Resources::happy;
 sf::Texture Resources::sad;
 sf::Texture Resources::troll;
 sf::Texture Resources::worm;
+sf::Texture Resources::spider;
 
 
 void Resources::load()
@@ -16,4 +17,5 @@ void Resources::load()
 	sad.loadFromFile("data/sad.png");
 	troll.loadFromFile("data/troll.png");
 	worm.loadFromFile("data/gusanito.png");
+	spider.loadFromFile("data/spider.png");
 }
