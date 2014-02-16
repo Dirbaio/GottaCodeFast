@@ -16,7 +16,7 @@ std::string readAll(std::string file)
 }
 
 GottaCodeFast::GottaCodeFast(int scrwidth, int scrheight, std::string title, int style) : Game(scrwidth, scrheight, title, style), editor(this), ui(this), compiling(false) {
-	problem = "sum";
+	problem = "helloworld";
 	time = 0;
 
 	ui.setStatement(readAll("data/judge/"+problem+"/problem.txt"));
@@ -29,10 +29,10 @@ GottaCodeFast::GottaCodeFast(int scrwidth, int scrheight, std::string title, int
 
 	timeUp = false;
 
-	w.setPosition(sf::Vector2f(100,100));
-	w.setPosFinal(sf::Vector2f(1000,100));
+	w.setPosition(sf::Vector2f(1000,100));
+	w.setPosFinal(sf::Vector2f(100,100));
 	s.setPosition(sf::Vector2f(500,100));
-	s.setPosFinal(sf::Vector2f(500,500));
+	s.setPosFinal(sf::Vector2f(500,200));
 }
 
 GottaCodeFast::~GottaCodeFast() {

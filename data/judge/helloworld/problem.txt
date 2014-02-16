@@ -1,0 +1,1 @@
+Escribe "Hello World" por la salida estandard! Rapido!

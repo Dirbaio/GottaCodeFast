@@ -12,8 +12,6 @@ Spider::Spider() {
 	nFrames = 11;
 	timeFrame = 3.f/11.f;
 
-	repeticiones  = 3;
-
 	this->setTexture(Resources::spider);
 	this->setOrigin(sf::Vector2f(100,75));
 }
@@ -44,10 +42,11 @@ void Spider::update(float deltaTime) {
 		}
 		if (frame >= nFrames) {
 			frame = 0;
+			if (estado == 1) waiting = true;
 		}
 		this->setTextureRect(sf::IntRect(sf::Vector2i(frame*200,estado*150),sf::Vector2i(200,150)));
 	}
-	else if (waiting) this->setTextureRect(sf::IntRect(sf::Vector2i(frame*200,0),sf::Vector2i(200,150)));
+	else if (waiting and estado != 2) this->setTextureRect(sf::IntRect(sf::Vector2i(10*200,150),sf::Vector2i(200,150)));
 	else {
 		timeFrame -= deltaTime;
 		if (timeFrame < 0.f) {
@@ -55,12 +54,12 @@ void Spider::update(float deltaTime) {
 			timeFrame += 2.f/26.f;
 		}
 		if (frame >= nFrames) alive = false;
-		this->setTextureRect(sf::IntRect(sf::Vector2i(frame*100,estado*63),sf::Vector2i(100,63)));
+		this->setTextureRect(sf::IntRect(sf::Vector2i(frame*200,estado*250),sf::Vector2i(100,63)));
 	}
 }
 
 bool Spider::isClicked(sf::Vector2f pos){
-	if (alive and std::abs(pos.x - (getPosition().x)) < 40 and std::abs(pos.y - getPosition().y) < 31) {
+	if (alive and std::abs(pos.x - (getPosition().x)) < 75 and std::abs(pos.y - getPosition().y) < 75) {
 		die();
 		return true;
 	}
