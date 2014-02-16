@@ -1,10 +1,29 @@
 #include "GottaCodeFast.hpp"
 #include "Resources.hpp"
 
+std::string problems[] = {
+	"sum",
+	"sum",
+	"END"
+};
+
 int main() {
 	Resources::load();
-	GottaCodeFast game(sf::VideoMode::getFullscreenModes()[0].width,sf::VideoMode::getFullscreenModes()[0].height,"GottaCodeFast",sf::Style::Default);
-	game.run();
-	return 42;
+
+	int pbmNum = 0;
+
+	while(true)
+	{
+		GottaCodeFast game(problems[pbmNum], sf::VideoMode::getFullscreenModes()[0].width,sf::VideoMode::getFullscreenModes()[0].height,"GottaCodeFast",sf::Style::Default);
+		game.run();
+
+		if(game.done)
+			pbmNum++;
+
+		if(problems[pbmNum] == "END")
+			break;
+	}
+
+	return 0;
 }
 
