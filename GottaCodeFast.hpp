@@ -8,7 +8,7 @@
 
 class GottaCodeFast : public Game {
 	public:
-		GottaCodeFast(int scrwidth, int scrheight, std::string title, int style);
+		GottaCodeFast(std::string problem, int scrwidth, int scrheight, std::string title, int style);
 		~GottaCodeFast();
 
 		void update(float deltaTime);
@@ -19,8 +19,10 @@ class GottaCodeFast : public Game {
 		void onMouseButtonPressed(sf::Event event);
 
 		std::string problem;
+		bool done;
 
 	private:
+		float doneTime;
 		float time;
 		bool timeUp;
 
