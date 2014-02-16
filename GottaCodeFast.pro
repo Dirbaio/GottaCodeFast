@@ -13,7 +13,8 @@ SOURCES += main.cpp \
     Editor.cpp \
     Resources.cpp \
     Monster.cpp \
-    Worm.cpp
+    Worm.cpp \
+    Spider.cpp
 
 HEADERS += \
     tools.hpp \
@@ -23,5 +24,6 @@ HEADERS += \
     Editor.hpp \
     Resources.hpp \
     Monster.h \
-    Worm.h
+    Worm.h \
+    Spider.h
 
