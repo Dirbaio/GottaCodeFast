@@ -22,10 +22,8 @@ GottaCodeFast::GottaCodeFast(std::string problem, int scrwidth, int scrheight, s
 	ui.setStatement(readAll("data/judge/"+problem+"/problem.txt"));
 	editor.setProgram(readAll("data/judge/"+problem+"/start.cpp"));
 	std::ifstream in("data/judge/"+problem+"/settings.txt");
-	int timeLimit;
 	in>>timeLimit;
 	in.close();
-	ui.resetTime(timeLimit);
 
 	timeUp = false;
 	time = 0.9;
@@ -49,8 +47,11 @@ void GottaCodeFast::update(float deltaTime) {
 		if(t1 == 0) ui.setMessage("3", 1, sf::Color(50, 255, 20));
 		if(t1 == 1) ui.setMessage("2", 1, sf::Color(50, 255, 20));
 		if(t1 == 2) ui.setMessage("1", 1, sf::Color(50, 255, 20));
-		if(t1 == 3) ui.setMessage("Go!", 1, sf::Color(50, 255, 20));
-
+		if(t1 == 3)
+		{
+			ui.setMessage("Go!", 1, sf::Color(50, 255, 20));
+			ui.resetTime(timeLimit);
+		}
 	}
 
 	editor.update(deltaTime);
@@ -86,7 +87,7 @@ void GottaCodeFast::update(float deltaTime) {
 		}
 	}
 
-	if(ui.timeUp() && !timeUp && !done)
+	if(ui.timeUp() && !timeUp && !done && time > 4.01)
 	{
 		timeUp = true;
 		ui.setMessage("Tiempo!", 2, sf::Color(255, 200, 0));

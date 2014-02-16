@@ -23,6 +23,8 @@ Interface::Interface(GottaCodeFast* game) : game(game) {
 	sf::FloatRect textRect = problem.getLocalBounds();
 	problem.setPosition(sf::Vector2f(250.0f,40.0f));
 	messageTime = -1;
+
+	resetTime(100000000);
 }
 
 void Interface::setStatement(std::string s)

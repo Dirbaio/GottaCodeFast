@@ -2,8 +2,10 @@
 #include "Resources.hpp"
 
 std::string problems[] = {
+	"helloworld",
 	"sum",
-	"sum",
+	"max",
+	"addonesecond",
 	"END"
 };
 
