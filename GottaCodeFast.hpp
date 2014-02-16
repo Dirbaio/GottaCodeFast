@@ -25,7 +25,7 @@ class GottaCodeFast : public Game {
 		float doneTime;
 		float time;
 		bool timeUp;
-
+		int timeLimit;
 		Editor editor;
 		Interface ui;
 		bool compiling;
