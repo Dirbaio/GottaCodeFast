@@ -4,7 +4,7 @@
 
 Interface::Interface(GottaCodeFast* game) : game(game) {
 	//BACKGROUND
-	fondo.loadFromFile("data/background.png");
+    fondo.loadFromFile("data/background.png");
 	background.setTexture(fondo);
 	sf::Vector2u s = game->getWindow().getSize();
 	float scaleX = float(s.x)/fondo.getSize().x;

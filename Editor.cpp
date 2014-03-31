@@ -73,7 +73,7 @@ sf::Vector2u Editor::getRandomCharPos() {
 		unsigned int x = rand()%lines[y].getContent().size();
 		c = lines[y].getContent()[x];
 	}
-	return sf::Vector2u(x,y);
+    return sf::Vector2u(x,lines[y].getYPosition());
 }
 
 void Editor::Line::add(int pos, char c) {
@@ -227,7 +227,11 @@ int Editor::Line::posToX(int pos) {
 		else
 			px++;
 
-	return px;
+    return px;
+}
+
+int Editor::Line::getYPosition() {
+    return text.getPosition().y;
 }
 
 std::string Editor::Line::getIndent() const {

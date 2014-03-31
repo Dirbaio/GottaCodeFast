@@ -18,6 +18,7 @@ class Editor {
 				void del(int pos);
 				int xToPos(int x);
 				int posToX(int pos);
+                int getYPosition();
 				void draw(sf::Vector2f pos);
 
 				std::string getContent() const {return content;}
