@@ -34,4 +34,21 @@
 
 extern const sf::Clock GLOBALCLOCK;
 
+enum {
+    RIGHT_KEY,
+    LEFT_KEY,
+    UP_KEY,
+    DOWN_KEY,
+    HOME_KEY,
+    END_KEY,
+    CONTROL_KEY,
+    SHIFT_KEY,
+    DELETE_KEY,
+    RETURN_KEY,
+    TAB_KEY,
+    F5_KEY,
+    ESC_KEY
+};
+
+
 #endif // TOOLS_HPP

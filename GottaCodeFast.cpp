@@ -182,10 +182,25 @@ void GottaCodeFast::onKeyPressed(int key) {
 
 	else if(!timeUp && time > 4 && !done)
 	{
-		if(key == 5)
+        if(key == F5_KEY)
 			compile();
+        else if (key == CONTROL_KEY)
+            editor.setCtrlKey(true);
+        else if (key == SHIFT_KEY)
+            editor.setShiftKey(true);
 		else
 			editor.process(key);
-	}
+    }
+}
+
+void GottaCodeFast::onKeyReleased(int key) {
+    switch(key) {
+    case CONTROL_KEY:
+        editor.setCtrlKey(false);
+        break;
+    case SHIFT_KEY:
+        editor.setShiftKey(false);
+        break;
+    }
 }
 

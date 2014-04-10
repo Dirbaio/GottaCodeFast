@@ -16,6 +16,7 @@ class GottaCodeFast : public Game {
 		void compile();
 		void compilationFinished(int status, std::string errors);
 		void onKeyPressed(int key);
+        void onKeyReleased(int key);
 		void onMouseButtonPressed(sf::Event event);
 
 		std::string problem;

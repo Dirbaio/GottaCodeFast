@@ -14,6 +14,7 @@ class Game {
 		virtual void draw() = 0;
 
         virtual void onKeyPressed(int key) = 0;
+        virtual void onKeyReleased(int key) = 0;
 		virtual void onMouseButtonPressed(sf::Event event) = 0;
 
 		sf::RenderWindow& getWindow() { return window;}

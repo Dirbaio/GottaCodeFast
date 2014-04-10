@@ -59,6 +59,9 @@ class Editor {
 
 		void process(int key);
 
+        void setCtrlKey(bool pressed);
+        void setShiftKey(bool pressed);
+
 		void setProgram(std::string p);
 
 		sf::Vector2u getRandomCharPos();
@@ -67,6 +70,9 @@ class Editor {
 
 		int savePos;
 		bool hasSavePos;
+
+        bool ctrlPressed;
+        bool shiftPressed;
 
 		float cursorTime;
 		sf::Vector2i cursorPos;

@@ -244,7 +244,7 @@ std::string Editor::Line::getIndent() const {
     return r;
 }
 
-Editor::Editor(GottaCodeFast* game) : hasSavePos(false), cursorTime(0), cursorPos(0,0), game(game) {
+Editor::Editor(GottaCodeFast* game) : hasSavePos(false), ctrlPressed(false), shiftPressed(false), cursorTime(0), cursorPos(0,0), game(game) {
 }
 
 Editor::~Editor() {
@@ -308,10 +308,12 @@ void Editor::down() {
 }
 
 void Editor::home() {
+    if (ctrlPressed) cursorPos.y = 0;
     cursorPos.x = 0;
 }
 
 void Editor::end() {
+    if (ctrlPressed) cursorPos.y = int(lines.size())-1;
     cursorPos.x = lines[cursorPos.y].getContent().size();
 }
 
@@ -374,15 +376,15 @@ void Editor::process(int key) {
         hasSavePos = false;
 
     switch(key) {
-    case 1: forward(); break;
-    case 2: backward(); break;
-    case 3: up(); break;
-    case 4: down(); break;
-    case 6: home(); break;
-    case 7: end(); break;
-    case 8: del(); break;
-    case 13: newline(); break;
-    case 9: insert('\t'); break;
+    case RIGHT_KEY: forward(); break;
+    case LEFT_KEY: backward(); break;
+    case UP_KEY: up(); break;
+    case DOWN_KEY: down(); break;
+    case HOME_KEY: home(); break;
+    case END_KEY: end(); break;
+    case DELETE_KEY: del(); break;
+    case RETURN_KEY: newline(); break;
+    case TAB_KEY: insert('\t'); break;
     case 127:
     {
         sf::Vector2i v = cursorPos;
@@ -395,6 +397,14 @@ void Editor::process(int key) {
         insert(char(key));
         break;
     }
+}
+
+void Editor::setCtrlKey(bool pressed) {
+    ctrlPressed = pressed;
+}
+
+void Editor::setShiftKey(bool pressed) {
+    shiftPressed = pressed;
 }
 
 bool Editor::isPositionValid(sf::Vector2i pos) {
