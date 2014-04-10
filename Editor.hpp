@@ -51,6 +51,8 @@ class Editor {
 		void backward();
 		void up();
 		void down();
+        void home();
+        void end();
 		void del();
 		void insert(char c);
 		void newline();

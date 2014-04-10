@@ -1,0 +1,3 @@
+Donat un nombre n, 0 <= n <= 1000000, escriu el n-essim nombre de fibonacci,
+on fib(0) = 0, fib(1) = 1, etc.
+Com aquest nombre pot ser gran, escriu-lo modul 1000000007;

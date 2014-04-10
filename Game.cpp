@@ -30,6 +30,12 @@ void Game::processInput() {
 					case sf::Keyboard::Down:
 						onKeyPressed(4);
 						break;
+                    case sf::Keyboard::Home:
+                        onKeyPressed(6);
+                        break;
+                    case sf::Keyboard::End:
+                        onKeyPressed(7);
+                        break;
 					case sf::Keyboard::F5:
 						onKeyPressed(5);
 						break;

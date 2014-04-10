@@ -1,0 +1,2 @@
+Llegeix un nombre natural i escriu "Parell" si es parell,  
+"Senar" altrament

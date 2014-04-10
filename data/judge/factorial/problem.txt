@@ -1,0 +1,2 @@
+Fes un programa que llegeixi un numero n i retorni factorial(n)
+0 <= n <= 12

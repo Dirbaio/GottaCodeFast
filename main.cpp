@@ -2,11 +2,15 @@
 #include "Resources.hpp"
 
 std::string problems[] = {
-	"helloworld",
+    "parell",
+    "factorial",
+    "helloworld",
+    "42",
 	"sum",
 	"max",
 	"addonesecond",
-	"END"
+    "fibonacci",
+    "END"
 };
 
 int main() {
