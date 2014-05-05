@@ -14,7 +14,8 @@ SOURCES += main.cpp \
     Resources.cpp \
     Monster.cpp \
     Worm.cpp \
-    Spider.cpp
+    Spider.cpp \
+    Keyboard.cpp
 
 HEADERS += \
     tools.hpp \
@@ -25,5 +26,6 @@ HEADERS += \
     Resources.hpp \
     Monster.h \
     Worm.h \
-    Spider.h
+    Spider.h \
+    Keyboard.hpp
 
