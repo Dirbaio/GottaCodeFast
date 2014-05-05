@@ -5,6 +5,7 @@
 #include "Interface.hpp"
 #include "Worm.h"
 #include "Spider.h"
+#include "Keyboard.hpp"
 
 class GottaCodeFast : public Game {
 	public:
@@ -28,6 +29,7 @@ class GottaCodeFast : public Game {
 		int timeLimit;
 		Editor editor;
 		Interface ui;
+		Keyboard kbd;
 		bool compiling;
 		int pid;
 		int errorfd;

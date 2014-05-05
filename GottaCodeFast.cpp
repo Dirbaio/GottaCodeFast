@@ -15,7 +15,9 @@ std::string readAll(std::string file)
 	return res;
 }
 
-GottaCodeFast::GottaCodeFast(std::string problem, int scrwidth, int scrheight, std::string title, int style) : Game(scrwidth, scrheight, title, style), editor(this), ui(this), compiling(false) {
+GottaCodeFast::GottaCodeFast(std::string problem, int scrwidth, int scrheight, std::string title, int style)
+	: Game(scrwidth, scrheight, title, style), editor(this), ui(this), compiling(false), kbd("/dev/input/by-id/usb-Logitech_Logitech_USB_Keyboard-event-kbd")
+{
 	this->problem = problem;
 	time = 0;
 
@@ -44,6 +46,9 @@ void GottaCodeFast::addRandomWorm() {
 }
 
 void GottaCodeFast::update(float deltaTime) {
+
+	kbd.update();
+
 	int t1 = int(time);
 	time += deltaTime;
 	int t2 = int(time);
