@@ -21,7 +21,6 @@ class GottaCodeFast : public Game {
 		std::string problem;
 		bool done;
 	private:
-		void addRandomWorm();
 		float doneTime;
 		float time;
 		bool timeUp;
@@ -32,8 +31,6 @@ class GottaCodeFast : public Game {
 		int pid;
 		int errorfd;
 		std::string output;
-		std::vector<Monster*> monsters;
-		std::vector<sf::Vector2u> monstersObjective;
 };
 
 #endif // GOTTACODEFAST_HPP

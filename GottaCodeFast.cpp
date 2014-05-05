@@ -34,15 +34,6 @@ GottaCodeFast::GottaCodeFast(std::string problem, int scrwidth, int scrheight, s
 GottaCodeFast::~GottaCodeFast() {
 }
 
-void GottaCodeFast::addRandomWorm() {
-//    Worm* w = new Worm();
-//    sf::Vector2u editorPos = editor.getRandomCharPos();
-//    w->setPosFinal(sf::Vector2f(editorPos.x, editorPos.y));
-//    w->setPosition(sf::Vector2f(std::rand() % 2 == 0 ? 0.0f : window.getSize().x,editorPos.y));
-//    monsters.push_back(w);
-//    monstersObjective.push_back();
-}
-
 void GottaCodeFast::update(float deltaTime) {
 	int t1 = int(time);
 	time += deltaTime;
@@ -61,14 +52,6 @@ void GottaCodeFast::update(float deltaTime) {
 
 	editor.update(deltaTime);
 	ui.update(deltaTime);
-
-//    for(unsigned int i = 0; i < monsters.size(); ++i) {
-//        Monster* m = monsters[i];
-//        m->update(deltaTime);
-//        if(m->isWaiting()) {
-
-//        }
-//    }
 
 	//Update compiler
 	if(compiling) {
@@ -113,16 +96,15 @@ void GottaCodeFast::update(float deltaTime) {
 void GottaCodeFast::draw() {
 	ui.draw();
 	editor.draw(sf::Vector2f(250, 95));
-	for(unsigned int i = 0; i < monsters.size(); ++i) window.draw(*monsters[i]);
 }
 
 void GottaCodeFast::onMouseButtonPressed(sf::Event event) {
-    //addRandomWorm();
-	//for(unsigned int i = 0; i < monsters.size(); ++i) monsters[i]->isClicked(sf::Vector2f(event.mouseButton.x,event.mouseButton.y));
+	(void) event;
 }
 
 void GottaCodeFast::compilationFinished(int status, std::string errors)
 {
+	(void) errors;
 	float len = 1.5;
 	switch(status)
 	{

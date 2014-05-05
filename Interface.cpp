@@ -20,7 +20,6 @@ Interface::Interface(GottaCodeFast* game) : game(game) {
 	timerFront.setFillColor(sf::Color(200,200,200));
 
 	problem = sf::Text("", Resources::messageFont, 30);
-	sf::FloatRect textRect = problem.getLocalBounds();
 	problem.setPosition(sf::Vector2f(250.0f,40.0f));
 	messageTime = -1;
 

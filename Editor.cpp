@@ -354,7 +354,7 @@ void Editor::setProgram(std::string p) {
     std::string item;
     int y = 0;
     while (std::getline(ss, item)) {
-        for(int i = 0; i < item.size(); i++)
+		for(unsigned i = 0; i < item.size(); i++)
             if(item[i] == '$')
             {
                 item.erase(item.begin()+i);
