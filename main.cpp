@@ -13,23 +13,29 @@ std::string problems[] = {
     "END"
 };
 
-int main() {
-	Resources::load();
 
-	int pbmNum = 0;
 
-	while(true)
-	{
-		GottaCodeFast game(problems[pbmNum], sf::VideoMode::getFullscreenModes()[0].width,sf::VideoMode::getFullscreenModes()[0].height,"GottaCodeFast",sf::Style::Default);
-		game.run();
 
-		if(game.done)
-			pbmNum++;
+int main()
+{
+    sf::RenderWindow window;
+    window.create(sf::VideoMode::getFullscreenModes()[0], "PRO1: The Game" , sf::Style::Default);
+    window.setMouseCursorVisible(true);
+    window.setVerticalSyncEnabled(true);
 
-		if(problems[pbmNum] == "END")
-			break;
-	}
+    Resources::load();
 
-	return 0;
+    Problem p ("parell");
+    GottaCodeFast gcf(window, p);
+
+    sf::Clock c;
+    srand(time(0));
+    while(window.isOpen())
+    {
+        float deltaTime = c.restart().asSeconds();
+        gcf.update(deltaTime);
+        window.clear();
+        gcf.draw();
+        window.display();
+    }
 }
-

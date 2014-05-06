@@ -1,6 +1,7 @@
 #include "Editor.hpp"
 #include "GottaCodeFast.hpp"
 #include "Resources.hpp"
+#include "Keyboard.hpp"
 
 #define FONTSIZE 20
 
@@ -354,7 +355,7 @@ void Editor::setProgram(std::string p) {
     std::string item;
     int y = 0;
     while (std::getline(ss, item)) {
-        for(int i = 0; i < item.size(); i++)
+        for(int i = 0; i < (int)item.size(); i++)
             if(item[i] == '$')
             {
                 item.erase(item.begin()+i);
@@ -374,16 +375,16 @@ void Editor::process(int key) {
         hasSavePos = false;
 
     switch(key) {
-    case 1: forward(); break;
-    case 2: backward(); break;
-    case 3: up(); break;
-    case 4: down(); break;
-    case 6: home(); break;
-    case 7: end(); break;
-    case 8: del(); break;
-    case 13: newline(); break;
-    case 9: insert('\t'); break;
-    case 127:
+    case RIGHT: forward(); break;
+    case LEFT: backward(); break;
+    case UP: up(); break;
+    case DOWN: down(); break;
+    case HOME: home(); break;
+    case END: end(); break;
+    case BACKSPACE: del(); break;
+    case '\n': newline(); break;
+    case '\t': insert('\t'); break;
+    case DEL:
     {
         sf::Vector2i v = cursorPos;
         forward();

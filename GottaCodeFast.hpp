@@ -1,41 +1,37 @@
 #ifndef GOTTACODEFAST_HPP
 #define GOTTACODEFAST_HPP
-#include "Game.hpp"
 #include "Editor.hpp"
 #include "Interface.hpp"
 #include "Worm.h"
 #include "Spider.h"
 #include "Keyboard.hpp"
+#include "Problem.hpp"
 
-class GottaCodeFast : public Game {
+class Player;
+class GottaCodeFast {
 	public:
-		GottaCodeFast(std::string problem, int scrwidth, int scrheight, std::string title, int style);
+        GottaCodeFast(sf::RenderWindow& window, Problem prob);
 		~GottaCodeFast();
 
 		void update(float deltaTime);
 		void draw();
-		void compile();
-		void compilationFinished(int status, std::string errors);
-		void onKeyPressed(int key);
-		void onMouseButtonPressed(sf::Event event);
 
 		std::string problem;
 		bool done;
-	private:
+
+        sf::RenderWindow& getWindow() { return window; }
+
+        sf::RenderWindow& window;
+        Problem prob;
 		void addRandomWorm();
 		float doneTime;
 		float time;
 		bool timeUp;
-		int timeLimit;
-		Editor editor;
 		Interface ui;
-		Keyboard kbd;
-		bool compiling;
-		int pid;
-		int errorfd;
-		std::string output;
 		std::vector<Monster*> monsters;
 		std::vector<sf::Vector2u> monstersObjective;
+
+        std::vector<Player*> players;
 };
 
 #endif // GOTTACODEFAST_HPP

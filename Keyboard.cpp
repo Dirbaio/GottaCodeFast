@@ -6,19 +6,6 @@
 #include <stdio.h>
 #include <unistd.h>
 
-const char RIGHT = 1;
-const char LEFT = 2;
-const char UP = 3;
-const char DOWN = 4;
-const char F5 = 5;
-const char HOME = 6;
-const char END = 7;
-const char ESC = 8;
-const char BACKSPACE = 9;
-const char DEL = 10;
-const char PAGEUP = 11;
-const char PAGEDOWN = 12;
-
 
 Keyboard::Keyboard(std::string device)
 {
@@ -109,6 +96,7 @@ int Keyboard::codeToChar(int code)
 		case 51:	return shift ? ';' : ',';
 		case 52:	return shift ? ':' : '.';
 		case 53:	return shift ? '_' : '-';
+        case 57:    return ' ';
 		case 102:	return HOME;
 		case 107:	return END;
 		case 111: 	return DEL;
@@ -118,6 +106,7 @@ int Keyboard::codeToChar(int code)
 		case 105:	return LEFT;
 		case 103: 	return UP;
 		case 108:	return DOWN;
+        case 63:    return F5;
 	}
 
 	return 0;
@@ -131,9 +120,7 @@ void Keyboard::keyDown(int code)
 
 	int c = codeToChar(code);
 	if(c)
-		printf("Pressed %c\n", (char)c);
-	else
-		printf("Pressed unknown %d\n", code);
+        events.push(c);
 }
 
 void Keyboard::keyUp(int code)

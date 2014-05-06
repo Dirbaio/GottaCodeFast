@@ -11,8 +11,9 @@ class Resources
 		static sf::Texture sad;
 		static sf::Texture troll;
 		static sf::Texture worm;
-		static sf::Texture spider;
-		static void load();
+        static sf::Texture spider;
+        static sf::Texture background;
+        static void load();
 };
 
 #endif // RESOURCES_HPP

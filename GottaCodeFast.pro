@@ -7,7 +7,6 @@ LIBS += -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 QMAKE_CXXFLAGS += -std=c++0x
 SOURCES += main.cpp \
     tools.cpp \
-    Game.cpp \
     GottaCodeFast.cpp \
     Interface.cpp \
     Editor.cpp \
@@ -15,11 +14,12 @@ SOURCES += main.cpp \
     Monster.cpp \
     Worm.cpp \
     Spider.cpp \
-    Keyboard.cpp
+    Keyboard.cpp \
+    Problem.cpp \
+    Player.cpp
 
 HEADERS += \
     tools.hpp \
-    Game.hpp \
     GottaCodeFast.hpp \
     Interface.hpp \
     Editor.hpp \
@@ -27,5 +27,7 @@ HEADERS += \
     Monster.h \
     Worm.h \
     Spider.h \
-    Keyboard.hpp
+    Keyboard.hpp \
+    Problem.hpp \
+    Player.hpp
 

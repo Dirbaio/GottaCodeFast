@@ -7,10 +7,12 @@ sf::Texture Resources::sad;
 sf::Texture Resources::troll;
 sf::Texture Resources::worm;
 sf::Texture Resources::spider;
+sf::Texture Resources::background;
 
 
 void Resources::load()
 {
+    background.loadFromFile("data/background2.png");
 	font.loadFromFile("data/Monospace.ttf");
 	messageFont.loadFromFile("data/Frijole-Regular.ttf");
 	happy.loadFromFile("data/happy.png");
